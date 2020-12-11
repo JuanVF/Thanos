@@ -43,9 +43,9 @@ int Utils::getUnitRandom(int min, int max){
     srand(time(0) * 7 + rand());
 
     do{
-        int random = (int) (rand() / pow(10, rand() % 1000)) % 10;
+        int random = (int) (rand() / pow(10, 2)) % 10;
 
-        unit = rand() % 10;
+        unit = random % 10;
 
         if (i >= 7){
             srand(time(0) * 8 + rand());
