@@ -62,6 +62,7 @@ int Utils::getUnitRandom(int min, int max){
 // si min > max o viceversa se ajustan
 float Utils::getRandom(int min, int max){
     float rst = 0;
+    bool isSigned = min < 0 || max < 0;
 
     // Evitamos que el minimo sea mayor al maximo
     min = (min > max) ? max : min;
@@ -82,10 +83,16 @@ float Utils::getRandom(int min, int max){
         maxB = maxB / 10;
     }
 
-    a = minB % 10;
+    a = (isSigned) ? 0 : minB % 10;
     b = maxB % 10;
 
     rst += pow(10, length - 1) * getUnitRandom(a, b);
+
+    if (isSigned){
+        int prob = getUnitRandom(0, 9);
+
+        rst = (prob >= 5) ? rst * -1 : rst;
+    }
 
     rst = (rst < min) ? min : rst;
     rst = (rst > max) ? max : rst;
