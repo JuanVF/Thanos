@@ -1,6 +1,11 @@
-#ifndef IOSSTREAM
-#define IOSSTREAM
+#ifndef COMMONS
+#define COMMONS
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <math.h>
+#include <random>
+
 using namespace std;
 #endif
 
@@ -21,6 +26,7 @@ class Familia;
 class Ubicacion;
 class RangoEtario;
 class Ejercicio;
+class Utils;
 
 /*
     Nota: Traten de definir sus clases aqui... esto para evitar problemas de importacion y declaracion
@@ -70,4 +76,13 @@ private:
 public:
     Mundo();
     // El resto de funcionas las generaremos cuando el arbol este listo
+};
+
+class Utils{
+public:
+    Utils();
+    float getRandom(int min, int max);
+    int getUnitRandom(int min, int max);
+    int abs(int num);
+    int len(int num);
 };

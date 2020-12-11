@@ -14,6 +14,7 @@ SOURCES += \
     Model/dataStructures/Queue.cpp \
     Model/dataStructures/node.cpp \
     Model/thanos.cpp \
+    Model/utils.cpp \
     main.cpp \
     Controller/mainwindow.cpp
 
@@ -23,7 +24,8 @@ HEADERS += \
     Model/dataStructures/LinkedList.h \
     Model/dataStructures/Queue.h \
     Model/dataStructures/node.h \
-    Model/thanos.h
+    Model/thanos.h \
+    Model/utils.h
 
 FORMS += \
     View/mainwindow.ui
