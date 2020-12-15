@@ -81,7 +81,6 @@ class Mundo{
 private:
     CircularList<Persona *> * personas;
     // Arbol
-
     // Estos son los arreglos de datos que se van a cargar
     string * apellidos;
     string * nombres;
@@ -101,6 +100,13 @@ public:
     int getUnitRandom(int min, int max);
     int abs(int num);
     int len(int num);
+};
+
+class Ubicacion{
+public:
+    Ubicacion();
+    string * continente;
+    string * pais;
 };
 
 class JsonManager{

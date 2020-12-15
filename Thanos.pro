@@ -15,6 +15,7 @@ SOURCES += \
     Model/dataStructures/node.cpp \
     Model/jsonmanager.cpp \
     Model/thanos.cpp \
+    Model/ubicacion.cpp \
     Model/utils.cpp \
     main.cpp \
     Controller/mainwindow.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     Model/dataStructures/node.h \
     Model/jsonmanager.h \
     Model/thanos.h \
+    Model/ubicacion.h \
     Model/utils.h
 
 FORMS += \
