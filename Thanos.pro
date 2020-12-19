@@ -15,7 +15,9 @@ SOURCES += \
     Model/dataStructures/LinkedList.cpp \
     Model/dataStructures/Queue.cpp \
     Model/dataStructures/node.cpp \
+    Model/jsonmanager.cpp \
     Model/thanos.cpp \
+    Model/utils.cpp \
     main.cpp \
     Controller/mainwindow.cpp
 
@@ -27,7 +29,9 @@ HEADERS += \
     Model/dataStructures/LinkedList.h \
     Model/dataStructures/Queue.h \
     Model/dataStructures/node.h \
-    Model/thanos.h
+    Model/jsonmanager.h \
+    Model/thanos.h \
+    Model/utils.h
 
 FORMS += \
     View/mainwindow.ui
@@ -36,3 +40,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    paises.json

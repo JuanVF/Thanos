@@ -1,13 +1,33 @@
-#ifndef IOSSTREAM
-#define IOSSTREAM
+#ifndef COMMONS
+#define COMMONS
+
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <math.h>
+#include <random>
+#include <string>
+#include <windows.h>
+#include <QDir>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QByteArray>
+#include <QFile>
+
 using namespace std;
 #endif
 
 /*
+    Constantes
+*/
+QDir dir;
+const string APP_FILES_DIR = dir.homePath().toStdString() + "/documents/thanos/";
+
+/*
     Aqui vamos a declarar las clases y estructuras que se van a utilizar en toda la progra
 */
-
 template <typename Data> struct CircularList;
 template <typename Data> struct LinkedList;
 template <typename Data> struct Node;
@@ -16,11 +36,13 @@ template <typename Data> struct Queue;
 class Mundo;
 class Persona;
 class Acciones;
-template <typename Data> class Accion;
 class Familia;
 class Ubicacion;
 class RangoEtario;
 class Ejercicio;
+class Utils;
+class JsonManager;
+template <typename Data> class Accion;
 
 /*
     Nota: Traten de definir sus clases aqui... esto para evitar problemas de importacion y declaracion
@@ -70,4 +92,30 @@ private:
 public:
     Mundo();
     // El resto de funcionas las generaremos cuando el arbol este listo
+};
+
+class Utils{
+public:
+    Utils();
+    float getRandom(int min, int max);
+    int getUnitRandom(int min, int max);
+    int abs(int num);
+    int len(int num);
+};
+
+class JsonManager{
+public:
+    const string paisesPath = "paises.json"; // Este es el unico que se lee con readJsonArray (pais-ubicacion)
+    const string apellidosPath = "apellidos.json";
+    const string nombresPath = "nombres.json";
+    const string profesionesPath = "profesiones.json";
+    const string deportesPath = "deportes.json";
+    const string creenciasPath = "creencias.json";
+
+    JsonManager(){};
+
+    void readJson(string path, QJsonObject * obj);
+    void readJsonArray(string path, QJsonArray * objs);
+    LinkedList<string> * getByString(string path);
+    LinkedList<string> * getPaises();
 };
