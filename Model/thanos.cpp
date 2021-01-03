@@ -32,7 +32,10 @@ template <typename Data> struct CircularList;
 template <typename Data> struct LinkedList;
 template <typename Data> struct Node;
 template <typename Data> struct Queue;
-
+template <typename Key, typename Value> struct Hashmap;
+template <typename Key, typename Value> struct Pairs;
+struct TreeNode;
+struct Tree;
 class Mundo;
 class Persona;
 class Acciones;
@@ -42,6 +45,7 @@ class RangoEtario;
 class Ejercicio;
 class Utils;
 class JsonManager;
+class EmailSender;
 template <typename Data> class Accion;
 
 /*
@@ -59,7 +63,7 @@ private:
     string profesion;
     string * experiencias;
     CircularList<Persona *> * amigos;
-    // Ubicacion * ubicacion;
+    Ubicacion * ubicacion;
     // Ejercicio * salud;
     // Familia * familia;
     // eEstadoMarital estado;
@@ -71,10 +75,12 @@ private:
     void generarBuenasAcciones();
 
 public:
-    Persona();
+    Persona(){}
 
-    void generarAmigos(CircularList<Persona *> personas);
+    void generarAmigos(CircularList<Persona *> * personas);
     void generarAcciones();
+
+    int getID();
 };
 
 class Mundo{
@@ -83,14 +89,16 @@ private:
     // Arbol
 
     // Estos son los arreglos de datos que se van a cargar
-    string * apellidos;
-    string * nombres;
-    string * paises;
-    string * creencias;
-    string * profesiones;
-
+    vector<string> nombres;
+    vector<string> apellidos;
+    vector<string> creencias;
+    vector<string> profesiones;
+    vector<Ubicacion *> paises;
 public:
     Mundo();
+
+    void reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises);
+    void loadData();
     // El resto de funcionas las generaremos cuando el arbol este listo
 };
 
@@ -117,5 +125,25 @@ public:
     void readJson(string path, QJsonObject * obj);
     void readJsonArray(string path, QJsonArray * objs);
     LinkedList<string> * getByString(string path);
-    LinkedList<string> * getPaises();
+    LinkedList<string> * getByString(string path, int n);
+
+    LinkedList<Ubicacion *> * getPaises();
+    LinkedList<Ubicacion *> * getPaises(int n);
+};
+
+class EmailSender{
+    const string email = "prograthanos@gmail.com";
+    const string password = "laprograthanos";
+public:
+    EmailSender(){}
+
+    bool sendEmail(string name, string toName, string to, string subject, string body);
+};
+
+class Ubicacion{
+public:
+    string pais;
+    string continente;
+
+    Ubicacion(string _pais, string _continente);
 };

@@ -1,0 +1,21 @@
+#include <Model/thanos.h>
+
+struct TreeNode{
+    Persona * persona;
+
+    TreeNode * hijoIzq, * hijoDer;
+
+    TreeNode(Persona * _persona){
+        persona = _persona;
+    }
+
+    TreeNode(Persona * _persona, TreeNode * _hijoIzq){
+        persona = _persona;
+        hijoIzq
+    }
+
+    // Retorna la ID del nodo
+    int getID(){
+        return persona->getID();
+    }
+};
