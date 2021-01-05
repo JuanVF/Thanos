@@ -33,6 +33,21 @@ template <typename Data> struct LinkedList;
 template <typename Data> struct Node;
 template <typename Data> struct Queue;
 
+template <typename Data> 
+class Accion{
+private:
+    Data data;
+    int cant;
+public:
+    Accion(Data _data){
+        data = _data;
+        cant = 0;        
+    }
+    void setCantidad(int _cant){
+        cant = _cant;
+    }
+};
+
 class Mundo;
 class Persona;
 class Acciones;
@@ -42,13 +57,14 @@ class RangoEtario;
 class Ejercicio;
 class Utils;
 class JsonManager;
-template <typename Data> class Accion;
+
 
 /*
     Nota: Traten de definir sus clases aqui... esto para evitar problemas de importacion y declaracion
           Con definir me refiero a solo las variables y funciones que tienen... el codigo y la logica
           cada una de las clases va a tener su propio archivo.
 */
+
 
 class Persona{
 private:
@@ -104,6 +120,7 @@ public:
 };
 
 class JsonManager{
+
 public:
     const string paisesPath = "paises.json"; // Este es el unico que se lee con readJsonArray (pais-ubicacion)
     const string apellidosPath = "apellidos.json";
@@ -119,3 +136,71 @@ public:
     LinkedList<string> * getByString(string path);
     LinkedList<string> * getPaises();
 };
+
+//////////////////////////Codigo de Maximo/////////////////////////
+/////////////////////////Enums////////////////////////////////////
+
+enum Pecados{
+    Lujuria,
+    Gula,
+    Avaricia,
+    Pereza,
+    Ira,
+    Envidia,
+    Soberbia
+};
+
+enum Virtudes{
+    Castidad,
+    Ayuno,
+    Donacion,
+    Diligencia,
+    Calma,
+    Solidaridad,
+    Humildad
+};
+
+enum RangosEtarios{
+    infantil = 0,
+    preescolar,
+    escolar,
+    pubertad,
+    adolescencia,
+    joven,
+    adultoJoven,
+    adultoMaduro,
+    adultoMayor
+};
+
+///////////////////////////Clases///////////////////
+class Acciones{
+private:
+    enum Pecados pecados;
+    enum Virtudes virtudes;    
+    LinkedList<Accion<Pecados*> > *listaPecados;
+    LinkedList<Accion<Virtudes*> > *listaVirtudes;
+    
+public:
+    //Preguntar si ya con hacerlo asi quedan hechas las listas.
+    void agregarPecados(int num, string sin);
+    void agregarBuenasAcciones(int num, string virtue);
+    void inicializar();
+};
+
+
+class RangoEtario{
+public:
+    enum RangosEtarios rango;
+    int  edad;
+    int fechaDeNacimiento[3];
+    int seleccionarRangoViajes();
+    string rango_etario;
+
+    bool isLeap(int num);    
+    void generarFecha();
+    void asignarRango();
+
+
+    
+};
+///////////////////////////////////////////////////
