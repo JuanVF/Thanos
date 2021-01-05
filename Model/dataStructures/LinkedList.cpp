@@ -210,6 +210,23 @@ struct LinkedList{
 		
 		return rev;
 	}
+
+    // Convierte una lista enlazada a un vector (array)
+    vector<Data> toVector(){
+        vector<Data> vec;
+
+        vec.resize(length);
+
+        Node<Data> * tmp = firstNode;
+
+        for (int i = 0; i < length; i++){
+            vec[i] = tmp->data;
+
+            tmp = tmp->next;
+        }
+
+        return vec;
+    }
 	
 	// Imprime la lista
 	void print(){

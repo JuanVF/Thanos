@@ -1,5 +1,5 @@
 #include <Controller/mainwindow.h>
-#include <Model/jsonmanager.h>
+#include <Model/dataStructures/HashMap.h>
 
 #include <QApplication>
 
@@ -9,6 +9,7 @@ int openApp(int argc, char *argv[]);
 int main(int argc, char *argv[]){
     //int toRet = openApp(argc, argv);
     int toRet = test();
+
     return toRet;
 }
 
