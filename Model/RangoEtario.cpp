@@ -18,6 +18,5 @@ class RangoEtario{
     void x1();
     void x2();
 
-
 };
 

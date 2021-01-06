@@ -9,8 +9,3 @@ enum eGenero{
     mujer,
 };
 
-enum eEstadoMarital{
-    soltero,
-    casado,
-    divorciado,
-};

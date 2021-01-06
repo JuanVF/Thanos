@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 template <class AccionesT>
 
 class Actions{
@@ -11,7 +10,6 @@ class Actions{
     int  cantidad;
 
 };
-
 
 enum Pecados{
     Lujuria,
