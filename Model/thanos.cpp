@@ -111,11 +111,32 @@ public:
 };
 
 class Ubicacion{
-public:
-    Ubicacion();
+private:
     string * continente;
     string * pais;
+public:
+    Ubicacion();
+    Ubicacion(string _pais, string _continente);
 };
+
+class Ejercicio{
+private:
+    int cantidad;
+    LinkedList<string*> *deportes;
+public:
+    Ejercicio();
+};
+
+class Familia{
+private:
+    Persona conyugue;
+    LinkedList<Persona*> *hijos;
+public:
+    Familia();
+    void generarConyugue();
+    void generarHijos();
+};
+
 
 class JsonManager{
 public:
@@ -144,12 +165,4 @@ public:
     EmailSender(){}
 
     bool sendEmail(string name, string toName, string to, string subject, string body);
-};
-
-class Ubicacion{
-public:
-    string pais;
-    string continente;
-
-    Ubicacion(string _pais, string _continente);
 };

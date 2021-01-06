@@ -18,7 +18,11 @@ SOURCES += \
     Model/dataStructures/Tree.cpp \
     Model/dataStructures/TreeNode.cpp \
     Model/dataStructures/node.cpp \
+    Model/ejercicio.cpp \
     Model/emailsender.cpp \
+    Model/estado.cpp \
+    Model/familia.cpp \
+    Model/genero.cpp \
     Model/jsonmanager.cpp \
     Model/mundo.cpp \
     Model/persona.cpp \
@@ -39,7 +43,11 @@ HEADERS += \
     Model/dataStructures/Tree.h \
     Model/dataStructures/TreeNode.h \
     Model/dataStructures/node.h \
+    Model/ejercicio.h \
     Model/emailsender.h \
+    Model/estado.h \
+    Model/familia.h \
+    Model/genero.h \
     Model/jsonmanager.h \
     Model/mundo.h \
     Model/persona.h \
