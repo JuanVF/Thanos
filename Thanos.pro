@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Model/Enums/eGenero.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
     Model/dataStructures/LinkedList.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 
 HEADERS += \
     Controller/mainwindow.h \
+    Model/Enums/eGenero.h \
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
     Model/dataStructures/LinkedList.h \

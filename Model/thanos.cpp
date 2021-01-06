@@ -15,6 +15,8 @@
 #include <QJsonArray>
 #include <QByteArray>
 #include <QFile>
+#include <time.h>
+#include <Model/Enums/eGenero.h>
 
 using namespace std;
 #endif
@@ -55,67 +57,72 @@ template <typename Data> class Accion;
 */
 
 class Persona{
-private:
+public:
     int ID;
     string apellido;
     string nombre;
     string creencia;
     string profesion;
     string * experiencias;
-    CircularList<Persona *> * amigos;
+    LinkedList<Persona *> * amigos;
     Ubicacion * ubicacion;
     // Ejercicio * salud;
     // Familia * familia;
     // eEstadoMarital estado;
     // RangoEtario * edad;
     // Acciones * acciones;
-    // eGenero genero;
+    eGenero genero;
 
     void generarPecados();
     void generarBuenasAcciones();
+    Persona(int _ID, eGenero _genero, string nombre);
 
-public:
-    Persona(){}
-
-    void generarAmigos(CircularList<Persona *> * personas);
+    void generarAmigos(LinkedList<Persona *> * personas);
     void generarAcciones();
 
     int getID();
+    static int getID(Persona * persona);
 };
 
 class Mundo{
-private:
-    CircularList<Persona *> * personas;
-    // Arbol
-
+public:
+    Tree * arbol;
+    LinkedList<Persona *> * personas;
     // Estos son los arreglos de datos que se van a cargar
-    vector<string> nombres;
+    vector<string> nombresMasc;
+    vector<string> nombresFem;
     vector<string> apellidos;
     vector<string> creencias;
     vector<string> profesiones;
     vector<Ubicacion *> paises;
-public:
+    vector<int> selectedIDs;
+
     Mundo();
 
     void reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises);
     void loadData();
+    void generateHumans(int amount);
+    Persona * generateHuman(int ID);
+    void generateTree();
+    void printHumans();
     // El resto de funcionas las generaremos cuando el arbol este listo
 };
 
 class Utils{
 public:
     Utils();
-    float getRandom(int min, int max);
-    int getUnitRandom(int min, int max);
-    int abs(int num);
-    int len(int num);
+    static float getRandom(int min, int max);
+    static int getUnitRandom(int min, int max);
+    static int abs(int num);
+    static int len(int num);
 };
 
 class JsonManager{
 public:
     const string paisesPath = "paises.json"; // Este es el unico que se lee con readJsonArray (pais-ubicacion)
     const string apellidosPath = "apellidos.json";
-    const string nombresPath = "nombres.json";
+    const string nombresMascPath = "nombres_h.json";
+    const string nombresFemPath = "nombres_m.json";
     const string profesionesPath = "profesiones.json";
     const string deportesPath = "deportes.json";
     const string creenciasPath = "creencias.json";
@@ -129,6 +136,8 @@ public:
 
     LinkedList<Ubicacion *> * getPaises();
     LinkedList<Ubicacion *> * getPaises(int n);
+    LinkedList<string> * getNames(eGenero genero);
+    LinkedList<string> * getNames(eGenero genero, int n);
 };
 
 class EmailSender{

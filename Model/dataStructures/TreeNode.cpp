@@ -1,22 +1,26 @@
 #include <Model/thanos.h>
 #include <Model/persona.h>
+#include <Model/dataStructures/node.h>
 
 struct TreeNode{
-    Persona * persona;
+    Node<Persona *> * persona;
 
     TreeNode * hijoIzq, * hijoDer;
 
     // Constructores
-    TreeNode(Persona * _persona){
+    TreeNode(Node<Persona *> * _persona){
         persona = _persona;
+        hijoDer = NULL;
+        hijoIzq = NULL;
     }
 
-    TreeNode(Persona * _persona, TreeNode * _hijoIzq){
+    TreeNode(Node<Persona *> * _persona, TreeNode * _hijoIzq){
         persona = _persona;
         hijoIzq = _hijoIzq;
+        hijoDer = NULL;
     }
 
-    TreeNode(Persona * _persona, TreeNode * _hijoIzq, TreeNode * _hijoDer){
+    TreeNode(Node<Persona *> * _persona, TreeNode * _hijoIzq, TreeNode * _hijoDer){
         persona = _persona;
         hijoIzq = _hijoIzq;
         hijoDer = _hijoDer;
@@ -26,6 +30,15 @@ struct TreeNode{
 
     // Retorna la ID del nodo
     int getID(){
-        return persona->getID();
+        return persona->data->getID();
+    }
+
+    // Retorna true si es una hoja
+    bool esHoja(){
+        return hijoIzq == NULL && hijoDer == NULL;
+    }
+
+    bool hijosNulos(){
+        return hijoIzq == NULL || hijoDer == NULL;
     }
 };

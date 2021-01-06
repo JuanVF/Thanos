@@ -47,6 +47,28 @@ LinkedList<string> * JsonManager::getByString(string path){
     return data;
 }
 
+// Retorna una lista de nombres asociados a genero
+LinkedList<string> * JsonManager::getNames(eGenero genero){
+    LinkedList<string> * nombres = new LinkedList<string>();
+
+    string path = (genero == HOMBRE) ? nombresMascPath : nombresFemPath;
+
+    QJsonArray nombresJson;
+    readJsonArray(path, &nombresJson);
+
+    for (int i = 0; i < nombresJson.size(); i++){
+        QJsonObject json = nombresJson[i].toObject();
+
+        string nombre = json["Nombre"].toString().toStdString();
+
+        if (nombre.empty()) continue;
+
+        nombres->add(nombre);
+    }
+
+    return nombres;
+}
+
 // Esto lee el paises.json y lo retorna en una lista enlazada
 LinkedList<Ubicacion *> * JsonManager::getPaises(){
     LinkedList<Ubicacion *> * paises = new LinkedList<Ubicacion *>();
