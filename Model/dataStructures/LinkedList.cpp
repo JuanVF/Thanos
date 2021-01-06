@@ -227,6 +227,52 @@ struct LinkedList{
 
         return vec;
     }
+
+    // Convierte una lista enlazada a un vector de nodos (array)
+    vector<Node<Data> *> toNodeVector(){
+        vector<Node<Data> *> vec;
+
+        vec.resize(length);
+
+        Node<Data> * tmp = firstNode;
+
+        for (int i = 0; i < length; i++){
+            vec[i] = tmp;
+
+            tmp = tmp->next;
+        }
+
+        return vec;
+    }
+
+    // Parte la lista entre los indices dados
+    LinkedList<Data> * split(int min, int max){
+        // Evitamos que el minimo sea mayor que el maximo
+        min = (min > max) ? max : min;
+        // Evitamos indices negativos (de momento 8) )
+        min = (min < 0) ? 0 : min;
+
+        max = (min == max) ? max + 1 : max;
+
+        LinkedList<Data> * list = new LinkedList<Data>();
+
+        for (int i = min; i < max; i++){
+            list->add(this->get(i));
+        }
+
+        return list;
+    }
+
+    // Retorna el dato que esta a la mitad de la lista
+    Data getMedian(){
+        return this->get(getMedianIndex());
+    }
+
+    // Retorna el indice que corresponde a la mediana
+    int getMedianIndex(){
+        int index = (length % 2 == 0) ? length / 2 : round(length / 2.0);
+        return index - 1;
+    }
 	
 	// Imprime la lista
 	void print(){
@@ -240,5 +286,53 @@ struct LinkedList{
 		}	
 		
 		cout << "]" << endl;
-	}
+    }
+
+    // Permite concatenar otra linkedlist
+    void concat(LinkedList<Data> * list){
+        Node<Data> * tmp = list->firstNode;
+
+        for (int i = 0; i < list->length; i++){
+            add(tmp->data);
+
+            tmp = tmp->next;
+        }
+    }
+
+    // Esta funcion permite ordenar una LinkedList con una funcion por parametro
+    // Data DEBE TENER UN INTEGER que lo identifique como ID en la lista
+    // La funcion DEBE RETORNAR ese integer
+    void sort(int (*getter)(Data data)){
+        vector<Node<Data> *> arr = this->toNodeVector();
+
+        sortAux(arr, 0, length-1, getter);
+    }
+
+private:
+    // Algoritmo recursivo de quick sort
+    void sortAux(vector<Node<Data> *> arr, int low, int high, int (*getter)(Data data)){
+        if (low < high){
+            int partIndex = partition(arr, low, high, getter);
+
+            sortAux(arr, low, partIndex - 1, getter);
+            sortAux(arr, partIndex + 1, high, getter);
+        }
+    }
+
+    // Esta funcion permite obtener el indice de particion y hacer los swaps de ordenamiento
+    int partition(vector<Node<Data> *> arr, int low, int high, int (*getter)(Data data)){
+        int pivot = arr[high]->data->getID();
+        int i = (low - 1);
+
+        for (int j = low; j <= high - 1; j++){
+            if ((*getter)(arr[j]->data) <= pivot){
+                i++;
+                Node<Data>::swap(arr[j], arr[i]);
+            }
+        }
+
+        Node<Data>::swap(arr[i+1], arr[high]);
+
+        return i + 1;
+    }
 };
