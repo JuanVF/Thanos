@@ -16,8 +16,8 @@ int main(int argc, char *argv[]){
 }
 
 int test(){
-    int r = RangoEtario().seleccionarRangoViajes();
-    cout << r <<endl;
+    //int r = RangoEtario().seleccionarRangoViajes();
+    //cout << r <<endl;
     return 0;
 }
 
