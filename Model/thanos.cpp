@@ -43,8 +43,15 @@ public:
         data = _data;
         cant = 0;        
     }
+    Accion(){
+        data = NULL;
+        cant = 0;
+    }
     void setCantidad(int _cant){
         cant = _cant;
+    }
+    void setData(Data _data){
+        data = _data;
     }
 };
 

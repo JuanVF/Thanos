@@ -6,8 +6,7 @@
 int test();
 int openApp(int argc, char *argv[]);
 
-//int r = RangoEtario().seleccionarRangoViajes();
-//return r;
+
 
 int main(int argc, char *argv[]){
     int toRet = openApp(argc, argv);
@@ -17,6 +16,8 @@ int main(int argc, char *argv[]){
 }
 
 int test(){
+    int r = RangoEtario().seleccionarRangoViajes();
+    cout << r <<endl;
     return 0;
 }
 
