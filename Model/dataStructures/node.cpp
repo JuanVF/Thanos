@@ -30,4 +30,18 @@ struct Node{
 	void print(){
 		cout << "[ " << data << " ] ";
 	}
+
+    // Permite intercambiar valores entre punteros
+    void swap(Node<Data> * node){
+        Data * tmp = data;
+        data = node->data;
+        node->data = tmp;
+    }
+
+    // Permite intercambiar dos nodos
+    static void swap(Node<Data> * n1, Node<Data> * n2){
+        Data tmp = n1->data;
+        n1->data = n2->data;
+        n2->data = tmp;
+    }
 };

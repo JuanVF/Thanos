@@ -94,4 +94,3 @@ void RangoEtario::asignarRango(){
 
 
 
-

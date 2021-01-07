@@ -15,6 +15,8 @@
 #include <QJsonArray>
 #include <QByteArray>
 #include <QFile>
+#include <time.h>
+#include <Model/genero.h>
 
 using namespace std;
 #endif
@@ -32,6 +34,7 @@ template <typename Data> struct CircularList;
 template <typename Data> struct LinkedList;
 template <typename Data> struct Node;
 template <typename Data> struct Queue;
+
 
 template <typename Data> 
 class Accion{
@@ -55,6 +58,10 @@ public:
     }
 };
 
+template <typename Key, typename Value> struct Hashmap;
+template <typename Key, typename Value> struct Pairs;
+struct TreeNode;
+struct Tree;
 class Mundo;
 class Persona;
 class Acciones;
@@ -65,6 +72,8 @@ class Ejercicio;
 class Utils;
 class JsonManager;
 
+class EmailSender;
+template <typename Data> class Accion;
 
 /*
     Nota: Traten de definir sus clases aqui... esto para evitar problemas de importacion y declaracion
@@ -74,64 +83,101 @@ class JsonManager;
 
 
 class Persona{
-private:
+public:
     int ID;
     string apellido;
     string nombre;
     string creencia;
     string profesion;
     string * experiencias;
-    CircularList<Persona *> * amigos;
-    // Ubicacion * ubicacion;
+    LinkedList<Persona *> * amigos;
+    Ubicacion * ubicacion;
     // Ejercicio * salud;
     // Familia * familia;
     // eEstadoMarital estado;
     // RangoEtario * edad;
     // Acciones * acciones;
-    // eGenero genero;
+    eGenero genero;
 
     void generarPecados();
     void generarBuenasAcciones();
+    Persona(int _ID, eGenero _genero, string nombre);
 
-public:
-    Persona();
-
-    void generarAmigos(CircularList<Persona *> personas);
+    void generarAmigos(LinkedList<Persona *> * personas);
     void generarAcciones();
+
+    int getID();
+    static int getID(Persona * persona);
 };
 
 class Mundo{
-private:
-    CircularList<Persona *> * personas;
-    // Arbol
-
-    // Estos son los arreglos de datos que se van a cargar
-    string * apellidos;
-    string * nombres;
-    string * paises;
-    string * creencias;
-    string * profesiones;
-
 public:
+    Tree * arbol;
+    LinkedList<Persona *> * personas;
+    // Estos son los arreglos de datos que se van a cargar
+    vector<string> nombresMasc;
+    vector<string> nombresFem;
+    vector<string> apellidos;
+    vector<string> creencias;
+    vector<string> profesiones;
+    vector<Ubicacion *> paises;
+    vector<int> selectedIDs;
+
     Mundo();
+
+    void reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises);
+    void loadData();
+    void generateHumans(int amount);
+    Persona * generateHuman(int ID);
+    void generateTree();
+    void printHumans();
     // El resto de funcionas las generaremos cuando el arbol este listo
 };
 
 class Utils{
 public:
     Utils();
-    float getRandom(int min, int max);
-    int getUnitRandom(int min, int max);
-    int abs(int num);
-    int len(int num);
+    static float getRandom(int min, int max);
+    static int getUnitRandom(int min, int max);
+    static int abs(int num);
+    static int len(int num);
 };
+
+class Ubicacion{
+private:
+    string * continente;
+    string * pais;
+public:
+    Ubicacion();
+    Ubicacion(string _pais, string _continente);
+};
+
+class Ejercicio{
+private:
+    int cantidad;
+    LinkedList<string*> *deportes;
+public:
+    Ejercicio();
+};
+
+class Familia{
+private:
+    Persona conyugue;
+    LinkedList<Persona*> *hijos;
+public:
+    Familia();
+    void generarConyugue();
+    void generarHijos();
+};
+
 
 class JsonManager{
 
 public:
     const string paisesPath = "paises.json"; // Este es el unico que se lee con readJsonArray (pais-ubicacion)
     const string apellidosPath = "apellidos.json";
-    const string nombresPath = "nombres.json";
+    const string nombresMascPath = "nombres_h.json";
+    const string nombresFemPath = "nombres_m.json";
     const string profesionesPath = "profesiones.json";
     const string deportesPath = "deportes.json";
     const string creenciasPath = "creencias.json";
@@ -141,7 +187,21 @@ public:
     void readJson(string path, QJsonObject * obj);
     void readJsonArray(string path, QJsonArray * objs);
     LinkedList<string> * getByString(string path);
-    LinkedList<string> * getPaises();
+    LinkedList<string> * getByString(string path, int n);
+
+    LinkedList<Ubicacion *> * getPaises();
+    LinkedList<Ubicacion *> * getPaises(int n);
+    LinkedList<string> * getNames(eGenero genero);
+    LinkedList<string> * getNames(eGenero genero, int n);
+};
+
+class EmailSender{
+    const string email = "prograthanos@gmail.com";
+    const string password = "laprograthanos";
+public:
+    EmailSender(){}
+
+    bool sendEmail(string name, string toName, string to, string subject, string body);
 };
 
 //////////////////////////Codigo de Maximo/////////////////////////

@@ -4,7 +4,5 @@
 
 #ifndef CLASES_H
 #define CLASES_H
-
 #include <Model/thanos.cpp>
-
 #endif

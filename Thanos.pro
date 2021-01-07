@@ -12,11 +12,22 @@ SOURCES += \
     Model/Acciones.cpp \
     Model/RangoEtario.cpp \
     Model/dataStructures/CircularList.cpp \
+    Model/dataStructures/HashMap.cpp \
     Model/dataStructures/LinkedList.cpp \
     Model/dataStructures/Queue.cpp \
+    Model/dataStructures/Tree.cpp \
+    Model/dataStructures/TreeNode.cpp \
     Model/dataStructures/node.cpp \
+    Model/ejercicio.cpp \
+    Model/emailsender.cpp \
+    Model/estado.cpp \
+    Model/familia.cpp \
+    Model/genero.cpp \
     Model/jsonmanager.cpp \
+    Model/mundo.cpp \
+    Model/persona.cpp \
     Model/thanos.cpp \
+    Model/ubicacion.cpp \
     Model/utils.cpp \
     main.cpp \
     Controller/mainwindow.cpp
@@ -26,11 +37,22 @@ HEADERS += \
     Model/Acciones.h \
     Model/RangoEtario.h \
     Model/dataStructures/CircularList.h \
+    Model/dataStructures/HashMap.h \
     Model/dataStructures/LinkedList.h \
     Model/dataStructures/Queue.h \
+    Model/dataStructures/Tree.h \
+    Model/dataStructures/TreeNode.h \
     Model/dataStructures/node.h \
+    Model/ejercicio.h \
+    Model/emailsender.h \
+    Model/estado.h \
+    Model/familia.h \
+    Model/genero.h \
     Model/jsonmanager.h \
+    Model/mundo.h \
+    Model/persona.h \
     Model/thanos.h \
+    Model/ubicacion.h \
     Model/utils.h
 
 FORMS += \
