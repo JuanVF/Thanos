@@ -1,6 +1,44 @@
 #include <iostream>
 #include <string>
 #include <Model/thanos.h>
+#include <Model/dataStructures/HashMap.h>
 
-using namespace std;
+Acciones::Acciones(){
+    listaPecados = new Hashmap<string,int>;
+    listaVirtudes = new Hashmap<string,int >;
+
+    listaPecados->insert("Lujuria",0);
+    listaPecados->insert("Gula",0);
+    listaPecados->insert("Avaricia",0);
+    listaPecados->insert("Pereza",0);
+    listaPecados->insert("Ira",0);
+    listaPecados->insert("Envidia",0);
+    listaPecados->insert("Soberbia",0);
+
+    listaVirtudes->insert("Castidad",0);
+    listaVirtudes->insert("Ayuno",0);
+    listaVirtudes->insert("Donacion",0);
+    listaVirtudes->insert("Diligencia",0);
+    listaVirtudes->insert("Calma",0);
+    listaVirtudes->insert("Solidaridad",0);
+    listaVirtudes->insert("Humildad",0);
+}
+
+void Acciones::agregarBuenasAcciones(int num, string virtue){
+    int virtudesAnteriores = listaVirtudes->get(virtue);
+    listaVirtudes->set(virtue,virtudesAnteriores+num);
+}
+
+void Acciones::agregarPecados(int num, string sin){
+    int pecadosAnteriores = listaPecados->get(sin);
+    listaPecados->set(sin,pecadosAnteriores+num);
+}
+
+void Acciones::setVirtud(int num, string virtue){
+    listaVirtudes->set(virtue,num);
+}
+
+void Acciones::setPecado(int num, string sin){
+    listaPecados->set(sin,num);
+}
 

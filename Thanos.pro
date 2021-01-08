@@ -10,9 +10,11 @@ CONFIG += c++11
 
 SOURCES += \
     Model/Acciones.cpp \
+    Model/PaisesVisitados.cpp \
     Model/RangoEtario.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
+    Model/dataStructures/Heap.cpp \
     Model/dataStructures/LinkedList.cpp \
     Model/dataStructures/Queue.cpp \
     Model/dataStructures/Tree.cpp \
@@ -35,9 +37,11 @@ SOURCES += \
 HEADERS += \
     Controller/mainwindow.h \
     Model/Acciones.h \
+    Model/PaisesVisitados.h \
     Model/RangoEtario.h \
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
+    Model/dataStructures/Heap.h \
     Model/dataStructures/LinkedList.h \
     Model/dataStructures/Queue.h \
     Model/dataStructures/Tree.h \

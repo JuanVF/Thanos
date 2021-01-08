@@ -3,7 +3,8 @@
 #include <Model/utils.h>
 #include <Model/thanos.h>
 
-
+//Esta funcion la hice con el fin de saber cuando el año es bisiesto
+// y con esto saber si febrero tiene 29 o 28 dias, a la hora de generar la fecha
 bool RangoEtario::isLeap(int num){
     if((num%4 == 0 and num%100 != 0) or num%400==0){
         return true;
@@ -11,7 +12,7 @@ bool RangoEtario::isLeap(int num){
     return false;
 }
 
-
+//Esta funcion se encarga de generar la fecha aleatoriamente
 void RangoEtario::generarFecha(){
     int random_year = Utils().getRandom(1935,2020);
     int random_month = Utils().getRandom(1,12);
@@ -34,35 +35,13 @@ void RangoEtario::generarFecha(){
     else{
         random_day =  Utils().getRandom(1, 30);
     }
+
     fechaDeNacimiento[0]= random_day;
     fechaDeNacimiento[1]= random_month;
     fechaDeNacimiento[2]= random_year;
 }
 
-// Rango 1 = 30%    | 0-2 paises visitados
-// Rango 2 = 25%    | 3-10 paises visitados
-// Rango 3 = 20%    | 11-15 paises visitados
-// Rango 4 = 15%    | 16-25 paises visitados
-// Rango 5 = 10%    | 26+   paises visitados
-//Esta funcion se encargara de seleccionar el numero de paises visitados
-//Esto se hace mediante un random y la probabilidad de cada rango
-int RangoEtario::seleccionarRangoViajes(){
-    int random_int = Utils().getRandom(1,100);
-    if (random_int<31){
-        return Utils().getRandom(0,2);
-    }
-    else if (random_int>=31 and random_int<56){
-        return Utils().getRandom(3,10);
-    }
-    else if (random_int>=56 and random_int<76){
-        return Utils().getRandom(11,15);
-    }
-    else if (random_int>=76 and random_int<91){
-        return Utils().getRandom(16,25);
-    }
-    else return Utils().getRandom(26,50);;
-}
-
+//Esta  funcion se encarga de asignar el rango de acuerdo a la edad
 void RangoEtario::asignarRango(){
     int edad = 2020 - fechaDeNacimiento[2];
     if (edad<2){

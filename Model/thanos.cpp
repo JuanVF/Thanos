@@ -36,7 +36,7 @@ template <typename Data> struct Node;
 template <typename Data> struct Queue;
 
 
-template <typename Data> 
+/*template <typename Data>
 class Accion{
 private:
     Data data;
@@ -56,7 +56,7 @@ public:
     void setData(Data _data){
         data = _data;
     }
-};
+};*/
 
 template <typename Key, typename Value> struct Hashmap;
 template <typename Key, typename Value> struct Pairs;
@@ -71,6 +71,7 @@ class RangoEtario;
 class Ejercicio;
 class Utils;
 class JsonManager;
+class PaisesVisitados;
 
 class EmailSender;
 template <typename Data> class Accion;
@@ -228,7 +229,7 @@ enum Virtudes{
 };
 
 enum RangosEtarios{
-    infantil = 0,
+    infantil ,
     preescolar,
     escolar,
     pubertad,
@@ -241,33 +242,47 @@ enum RangosEtarios{
 
 ///////////////////////////Clases///////////////////
 class Acciones{
-private:
-    enum Pecados pecados;
-    enum Virtudes virtudes;    
-    LinkedList<Accion<Pecados*> > *listaPecados;
-    LinkedList<Accion<Virtudes*> > *listaVirtudes;
-    
+private:   
+    Hashmap<string ,int > *listaPecados;
+    Hashmap<string,int > *listaVirtudes;
 public:
-    //Preguntar si ya con hacerlo asi quedan hechas las listas.
+    Acciones();
+    //Estas funciones le suman un int a los pecados que ya tenian
     void agregarPecados(int num, string sin);
     void agregarBuenasAcciones(int num, string virtue);
-    void inicializar();
+    //Estas en vez de sumar definen la cantidad de una vez
+    void setPecado(int num, string sin);
+    void setVirtud(int num, string virtue);
 };
 
 
 class RangoEtario{
 public:
     enum RangosEtarios rango;
-    int  edad;
-    int fechaDeNacimiento[3];
-    int seleccionarRangoViajes();
+    int  edad;    
     string rango_etario;
+
+    //fechaDeNacimiento es un array en donde
+    //[0] = dia
+    //[1] = mes
+    //[2] = año
+    int fechaDeNacimiento[3];
 
     bool isLeap(int num);    
     void generarFecha();
     void asignarRango();
 
-
-    
 };
-///////////////////////////////////////////////////
+
+class PaisesVisitados{
+private:
+    string listaPaisesVisitados[50];
+public:
+    int seleccionarRangoViajes();
+    void seleccionarPaisesRandom();
+    void agregarPaises();
+
+};
+
+
+

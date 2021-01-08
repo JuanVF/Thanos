@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
     //int toRet = test();
 
     //int toRet = openApp(argc, argv);
-    int toRet = test();
+    //int toRet = test();
 
     return toRet;
 
