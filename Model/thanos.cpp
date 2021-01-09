@@ -75,7 +75,8 @@ public:
 
     void generarPecados();
     void generarBuenasAcciones();
-    Persona(int _ID, eGenero _genero, string nombre);
+    Persona(int _ID, eGenero _genero, string nombre, string _creencia, string _profesion, Ubicacion * ub);
+    bool amigosComun(Persona * persona);
 
     void generarAmigos(LinkedList<Persona *> * personas);
     void generarAcciones();
@@ -105,6 +106,7 @@ public:
     Persona * generateHuman(int ID);
     void generateTree();
     void printHumans();
+    void generateFriends();
     // El resto de funcionas las generaremos cuando el arbol este listo
 };
 

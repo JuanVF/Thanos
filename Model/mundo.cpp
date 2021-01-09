@@ -90,8 +90,11 @@ Persona * Mundo::generateHuman(int ID){
 
     eGenero genero = (probGen > 50) ? HOMBRE : MUJER;
     string nombre = (genero == HOMBRE) ? nombresMasc[in] : nombresFem[in];
+    string creencia = creencias[Utils::getRandom(0, creencias.size() - 1)];
+    string profesion = profesiones[Utils::getRandom(0, profesiones.size() - 1)];
+    Ubicacion * ubicacion = paises[Utils::getRandom(0, paises.size() - 1)];
 
-    return new Persona(ID, genero, nombre);
+    return new Persona(ID, genero, nombre, creencia, profesion, ubicacion);
 }
 
 // Esta funcion genera el arbol del mundo
@@ -121,15 +124,39 @@ void Mundo::generateTree(){
     arbol = Tree::generateTree(lista);
 }
 
+// Genera los amigos en el arbol
+void Mundo::generateFriends(){
+    Node<Persona *> * nodo = personas->firstNode;
+
+    for (int i = 0; i < personas->length; i++){
+        nodo->data->generarAmigos(personas);
+
+        nodo = nodo->next;
+    }
+}
+
 void Mundo::printHumans(){
     if (personas == NULL) return;
 
     int last = -1;
 
+    cout << "Lista de humanos: " << endl << endl;
     Node<Persona*> * tmp = personas->firstNode;
+
     for (int i = 0; i < personas->length; i++){
         int current = tmp->data->getID();
         cout << "ID#" << current << ", Nombre: " <<tmp->data->nombre << endl;
+        cout << "Creencia: " << tmp->data->creencia << endl;
+        cout << "Profesion: " << tmp->data->profesion << endl;
+        cout << "Pais: " << tmp->data->ubicacion->pais << endl;
+        cout << "--------------------------------------------------" << endl;
+        cout << "Amigos: " << endl;
+
+        for (int j = 0; j < tmp->data->amigos->length; j++){
+            cout << "ID#" << tmp->data->amigos->get(j)->ID << ", Nombre: " <<tmp->data->amigos->get(j)->nombre << endl;
+        }
+
+        cout << "--------------------------------------------------" << endl << endl;
 
         last = current;
         tmp = tmp->next;

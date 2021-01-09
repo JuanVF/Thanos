@@ -23,7 +23,7 @@ int test(){
 
     float time = clock();
 
-    mundo->generateHumans(10000);
+    mundo->generateHumans(100);
 
     float since = (clock() - time)/1000.0;
 
@@ -35,22 +35,13 @@ int test(){
 
     cout << "Tiempo en generar arbol: " << since << "s" << endl;
 
-    int lastID = mundo->personas->lastNode->data->getID();
-    cout << "Ultima ID: " << lastID << endl;
-
     time = clock();
-    Node<Persona *> * tmp = mundo->personas->firstNode;
-
-    for (int i = 0; i < mundo->personas->length; i++){
-        if (tmp->data->getID() == lastID) break;
-
-        tmp = tmp->next;
-    }
-
+    mundo->generateFriends();
     since = (clock() - time)/1000.0;
 
-    cout << "Tiempo en buscar iterativamente: " << since << "s" << endl;
-    //mundo->printHumans();
+    cout << "Tiempo en generar amigos: " << since << "s" << endl;
+
+    mundo->printHumans();
 
     return 0;
 }
