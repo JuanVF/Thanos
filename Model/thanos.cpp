@@ -95,7 +95,6 @@ private:
     vector<Ubicacion *> paises;
 public:
     Mundo();
-
     void reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises);
     void loadData();
     // El resto de funcionas las generaremos cuando el arbol este listo
@@ -136,6 +135,7 @@ public:
     void generarConyugue();
     void generarHijos();
 };
+
 
 
 class JsonManager{

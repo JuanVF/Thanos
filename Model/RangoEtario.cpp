@@ -17,6 +17,5 @@ class RangoEtario{
     int  cantidad;
     void x1();
     void x2();
-
 };
 
