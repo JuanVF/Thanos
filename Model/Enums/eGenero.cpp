@@ -1,0 +1,3 @@
+enum eGenero{
+    HOMBRE, MUJER
+};
