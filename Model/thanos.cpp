@@ -40,6 +40,7 @@ class Mundo;
 class Persona;
 class Acciones;
 class Familia;
+class EstadoMarital;
 class Ubicacion;
 class RangoEtario;
 class Ejercicio;
@@ -129,12 +130,19 @@ public:
 class Familia{
 private:
     Persona conyugue;
-    LinkedList<Persona*> *hijos;
+    LinkedList<Persona *> *hijos;
 public:
     Familia();
     void generarConyugue();
     void generarHijos();
 };
+
+class EstadoMarital{
+public:
+    EstadoMarital();
+    int getEstado();
+};
+
 
 
 
