@@ -11,6 +11,8 @@ CONFIG += c++11
 SOURCES += \
     Model/Acciones.cpp \
     Model/RangoEtario.cpp \
+    Model/Enemies/Nebula.cpp \
+    Model/Enums/eGenero.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
     Model/dataStructures/LinkedList.cpp \
@@ -24,18 +26,23 @@ SOURCES += \
     Model/familia.cpp \
     Model/genero.cpp \
     Model/jsonmanager.cpp \
-    Model/mundo.cpp \
-    Model/persona.cpp \
+    Model/Mundo/mundo.cpp \
+    Model/Mundo/persona.cpp \
     Model/thanos.cpp \
-    Model/ubicacion.cpp \
+    Model/Mundo/ubicacion.cpp \
     Model/utils.cpp \
     main.cpp \
     Controller/mainwindow.cpp
 
 HEADERS += \
     Controller/mainwindow.h \
+<<<<<<< HEAD
     Model/Acciones.h \
     Model/RangoEtario.h \
+=======
+    Model/Enemies/Nebula.h \
+    Model/Enums/eGenero.h \
+>>>>>>> JuanBranch
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
     Model/dataStructures/LinkedList.h \
@@ -49,10 +56,10 @@ HEADERS += \
     Model/familia.h \
     Model/genero.h \
     Model/jsonmanager.h \
-    Model/mundo.h \
-    Model/persona.h \
+    Model/Mundo/mundo.h \
+    Model/Mundo/persona.h \
     Model/thanos.h \
-    Model/ubicacion.h \
+    Model/Mundo/ubicacion.h \
     Model/utils.h
 
 FORMS += \
