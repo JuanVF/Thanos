@@ -16,10 +16,48 @@
 #include <QByteArray>
 #include <QFile>
 #include <time.h>
-#include <Model/genero.h>
 
 using namespace std;
 #endif
+
+/////////////////////////Enums////////////////////////////////////
+
+enum Pecados{
+    Lujuria,
+    Gula,
+    Avaricia,
+    Pereza,
+    Ira,
+    Envidia,
+    Soberbia
+};
+
+enum Virtudes{
+    Castidad,
+    Ayuno,
+    Donacion,
+    Diligencia,
+    Calma,
+    Solidaridad,
+    Humildad
+};
+
+enum RangosEtarios{
+    infantil = 0,
+    preescolar,
+    escolar,
+    pubertad,
+    adolescencia,
+    joven,
+    adultoJoven,
+    adultoMaduro,
+    adultoMayor
+};
+
+enum eGenero{
+    hombre,
+    mujer,
+};
 
 /*
     Constantes
@@ -190,39 +228,6 @@ public:
 };
 
 //////////////////////////Codigo de Maximo/////////////////////////
-/////////////////////////Enums////////////////////////////////////
-
-enum Pecados{
-    Lujuria,
-    Gula,
-    Avaricia,
-    Pereza,
-    Ira,
-    Envidia,
-    Soberbia
-};
-
-enum Virtudes{
-    Castidad,
-    Ayuno,
-    Donacion,
-    Diligencia,
-    Calma,
-    Solidaridad,
-    Humildad
-};
-
-enum RangosEtarios{
-    infantil = 0,
-    preescolar,
-    escolar,
-    pubertad,
-    adolescencia,
-    joven,
-    adultoJoven,
-    adultoMaduro,
-    adultoMayor
-};
 
 ///////////////////////////Clases///////////////////
 class Acciones{

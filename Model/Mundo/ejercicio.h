@@ -2,6 +2,6 @@
 #define EJERCICIO_H
 
 
-#include <Model/ejercicio.cpp>
+#include <Model/Mundo/ejercicio.cpp>
 
 #endif // EJERCICIO_H
