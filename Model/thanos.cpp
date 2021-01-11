@@ -130,10 +130,9 @@ public:
 };
 
 class Ubicacion{
-private:
+public:
     string * continente;
     string * pais;
-public:
     Ubicacion();
     Ubicacion(string _pais, string _continente);
 };
@@ -229,9 +228,7 @@ enum RangosEtarios{
 class Acciones{
 private:
     enum Pecados pecados;
-    enum Virtudes virtudes;    
-    LinkedList<Accion<Pecados*> > *listaPecados;
-    LinkedList<Accion<Virtudes*> > *listaVirtudes;
+    enum Virtudes virtudes;
     
 public:
     //Preguntar si ya con hacerlo asi quedan hechas las listas.

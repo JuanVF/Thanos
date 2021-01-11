@@ -88,8 +88,8 @@ Persona * Mundo::generateHuman(int ID){
     int probGen = Utils::getRandom(0, 100);
     int in = Utils::getRandom(0, 199);
 
-    eGenero genero = (probGen > 50) ? HOMBRE : MUJER;
-    string nombre = (genero == HOMBRE) ? nombresMasc[in] : nombresFem[in];
+    eGenero genero = (probGen > 50) ? hombre : mujer;
+    string nombre = (genero == hombre) ? nombresMasc[in] : nombresFem[in];
     string creencia = creencias[Utils::getRandom(0, creencias.size() - 1)];
     string profesion = profesiones[Utils::getRandom(0, profesiones.size() - 1)];
     Ubicacion * ubicacion = paises[Utils::getRandom(0, paises.size() - 1)];

@@ -36,13 +36,10 @@ SOURCES += \
 
 HEADERS += \
     Controller/mainwindow.h \
-<<<<<<< HEAD
     Model/Acciones.h \
     Model/RangoEtario.h \
-=======
     Model/Enemies/Nebula.h \
     Model/Enums/eGenero.h \
->>>>>>> JuanBranch
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
     Model/dataStructures/LinkedList.h \
