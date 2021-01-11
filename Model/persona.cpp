@@ -26,5 +26,4 @@ void Persona::generarAcciones(){
 void Persona::generarAmigos(LinkedList<Persona *> * personas){
     int cant = Utils::getRandom(0, 50);
 
-
 }

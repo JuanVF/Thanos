@@ -5,7 +5,6 @@ Familia::Familia(){}
 
 void Familia::generarConyugue(){
     int estado = EstadoMarital().getEstado();
-
 }
 
 void Familia::generarHijos(){}

@@ -1,4 +1,4 @@
-#ifndef COMMONS
+    #ifndef COMMONS
 #define COMMONS
 
 #include <iostream>
