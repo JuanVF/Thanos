@@ -9,11 +9,14 @@ int test();
 int openApp(int argc, char *argv[]);
 void getLevels(LinkedList<Node<Persona *>*> * list, Hashmap<int, LinkedList<Node<Persona *>*> *> * hashmap, int level);
 
+
+
 int main(int argc, char *argv[]){
     //int toRet = openApp(argc, argv);
     int toRet = test();
 
     return toRet;
+
 }
 
 int test(){
@@ -61,3 +64,5 @@ int openApp(int argc, char *argv[]){
     w.show();
     return a.exec();
 }
+
+
