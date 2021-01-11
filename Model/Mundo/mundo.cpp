@@ -135,6 +135,18 @@ void Mundo::generateFriends(){
     }
 }
 
+// Retorna una persona por su ID
+Persona * Mundo::getById(int ID){
+    return arbol->obtener(ID);
+}
+
+// Retorna la lista de amigos de una persona por su ID
+vector<Persona *> Mundo::getFriendsById(int ID){
+    Persona * persona = getById(ID);
+
+    return persona->amigos->toVector();
+}
+
 void Mundo::printHumans(){
     if (personas == NULL) return;
 

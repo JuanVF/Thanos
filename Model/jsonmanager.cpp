@@ -1,5 +1,5 @@
 #include <Model/thanos.h>
-#include <Model/ubicacion.h>
+#include <Model/Mundo/ubicacion.h>
 #include <Model/dataStructures/LinkedList.h>
 #include <Model/utils.h>
 

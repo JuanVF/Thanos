@@ -1,7 +1,7 @@
 #include <Controller/mainwindow.h>
 #include <Model/dataStructures/HashMap.h>
 #include <Model/dataStructures/Tree.h>
-#include <Model/mundo.h>
+#include <Model/Mundo/mundo.h>
 
 #include <QApplication>
 

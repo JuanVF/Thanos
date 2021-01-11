@@ -107,6 +107,16 @@ public:
     void generateTree();
     void printHumans();
     void generateFriends();
+
+    // Consultas al mundo
+    Persona * getById(int ID);
+    vector<Persona *> getFamilyById(int ID);
+    vector<Persona *> getFriendsById(int ID);
+    vector<Persona *> getBySport(string sport);
+
+    int getAlivePeople();
+    int getDeathPeople();
+    int getSavedPeople();
     // El resto de funcionas las generaremos cuando el arbol este listo
 };
 

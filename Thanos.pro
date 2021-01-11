@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Model/Enemies/Nebula.cpp \
     Model/Enums/eGenero.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
@@ -19,16 +20,17 @@ SOURCES += \
     Model/dataStructures/node.cpp \
     Model/emailsender.cpp \
     Model/jsonmanager.cpp \
-    Model/mundo.cpp \
-    Model/persona.cpp \
+    Model/Mundo/mundo.cpp \
+    Model/Mundo/persona.cpp \
     Model/thanos.cpp \
-    Model/ubicacion.cpp \
+    Model/Mundo/ubicacion.cpp \
     Model/utils.cpp \
     main.cpp \
     Controller/mainwindow.cpp
 
 HEADERS += \
     Controller/mainwindow.h \
+    Model/Enemies/Nebula.h \
     Model/Enums/eGenero.h \
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
@@ -39,10 +41,10 @@ HEADERS += \
     Model/dataStructures/node.h \
     Model/emailsender.h \
     Model/jsonmanager.h \
-    Model/mundo.h \
-    Model/persona.h \
+    Model/Mundo/mundo.h \
+    Model/Mundo/persona.h \
     Model/thanos.h \
-    Model/ubicacion.h \
+    Model/Mundo/ubicacion.h \
     Model/utils.h
 
 FORMS += \

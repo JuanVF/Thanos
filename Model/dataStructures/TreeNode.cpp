@@ -1,5 +1,5 @@
 #include <Model/thanos.h>
-#include <Model/persona.h>
+#include <Model/Mundo/persona.h>
 #include <Model/dataStructures/node.h>
 
 struct TreeNode{
