@@ -1,166 +1,146 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+#include <vector>
+#include <exception>
 
-#define HEAP_SIZE 10
+//En el constructor// TRUE = MAXHEAP
+//                   FALSE = MINHEAP
+//
 
-//building a min-heap
-typedef struct heap{
-    int data[HEAP_SIZE + 1];  //the body of the heap
-    int total_elements; //the current number of elements in the heap
-}heap;
+using namespace std;
 
-void heap_insert(heap *heap, int x);
-void heap_init(heap *heap);
-void make_heap(heap *heap, int s[], int n);
-void print_heap(heap *heap);
-int get_minimum(heap *heap);
-int get_parent(int n);
-int young_child(int n);
-int remove_minimum(heap *heap);
-void bubble_up(heap *heap, int total_elements);
-void bubble_down(heap *heap, int index);
-void heap_insert(heap *heap, int x);
+class heap { ;
+
+public:
+    virtual void insert(int element){}
+
+    virtual int get() { return 0; }
+
+    virtual int deleteElement() { return 0; }
+};
+
+struct Heap : public heap {
+private:
+    int index;
+    int size;
+    bool max;
+    int heap_ar[];
 
 
-void heap_init(heap *heap){
-    heap -> total_elements = 0;
-    int i;
-    int len = sizeof(heap -> data)/sizeof(int);
-
-    for(i = 0; i < len; i++){
-        heap -> data[i] = 0;
+    static int find_parent(int i) {
+        if (i % 2 == 0) {
+            return (i - 1) / 2;
+        } else
+            return (i) / 2;
     }
-}
 
-void make_heap(heap *heap, int s[], int n){
-    int i; //counter
-    //initialize the heap
-    heap_init(heap);
-    //insert the elements into the heap
-    for(i = 0; i < n; i++){
-        heap_insert(heap,s[i]);
+    bool compare(int a, int b) const {
+        if (max)
+            return a > b;
+        return a < b;
     }
-}
 
-
-void print_heap(heap *heap){
-    int i;
-    int elements = heap -> total_elements;
-
-    for(i = 1; i <= elements; i++){
-        printf("ELEMENT[%d]: %d\n",i,heap -> data[i]);
-    }
-}
-
-int get_minimum(heap *heap){
-    return heap -> data[1];
-}
-
-//returns the index of the parent (if any) of the index n
-int get_parent(int n){
-    return n == 1 ? -1 : (int)(n/2);
-
-}
-//returns the index of the younger child
-int young_child(int n){
-    return 2*n;
-}
-
-int remove_minimum(heap *heap){
-    int min = -1;
-
-    if(heap -> total_elements <= 0)
-        printf("EMPTY HEAP!");
-
-    else{
-        //the root is the minimum element
-        min = heap -> data[1];
-        //replace the element at the top with last element in the heap
-        heap -> data[1] = heap -> data[heap -> total_elements];
-        //reduce the total elements in the heap
-        heap -> total_elements -= 1;
-        bubble_down(heap,1);
-    }
-    return min;
-}
-
-//bubbles down an element into it's proper place in the heap
-void bubble_down(heap *heap, int p){
-    int c; //child index
-    int i; //counter
-    int min_index; //index of lightest child
-
-    c = young_child(p);
-    min_index = p;
-
-    for(i = 0; i < 2; i++){
-        if(c + i <= heap -> total_elements){
-            //check to see if the data at min_index is larger than the data at the child
-            if(heap -> data[min_index] > heap -> data[c+i]){
-                min_index = c + i;
-            }
+    void heapify_insert(int i) {
+        int parent_index = find_parent(i);
+        while (i > 0 && compare(heap_ar[i], heap_ar[parent_index])) {
+            swap(heap_ar[i], heap_ar[parent_index]);
+            i = parent_index;
+            parent_index = find_parent(i);
         }
     }
 
-    if(min_index != p){
-        //swap the elements
-        int temp_variable = heap -> data[p];
-        heap -> data[p] = heap -> data[min_index];
-        heap -> data[min_index] = temp_variable;
-        //call bubble down
-        bubble_down(heap, min_index);
+    static int childLeft(int i) {
+        return (2 * i) + 1;
     }
-}
 
-//bubbles up the last element of the heap to maintain heap structure
-/**
-* *heap: pointer to the heap
-* total_elements: the total elements in the heap
-**/
-void bubble_up(heap *heap, int index){
-    //if we are at the root of the heap, no parent
-    if(get_parent(index) == -1)
-        return;
-
-    //if the parent node has a larger data value, we need to bubble up
-    if(heap -> data[get_parent(index)] > heap -> data[index]){
-        //swap the elements
-        int temp_variable = heap -> data[get_parent(index)];
-        heap -> data[get_parent(index)] = heap -> data[index];
-        heap -> data[index] = temp_variable;
-        //call the bubble up function to the new parent
-        bubble_up(heap, get_parent(index));
+    static int childRight(int i) {
+        return (2 * i) + 2;
     }
-}
 
-void heap_insert(heap *heap, int x){
-    //if the heap is already full
-    if(heap -> total_elements >= HEAP_SIZE)
-        printf("WARNING: HEAP OVERFLOW ERROR!\n");
-
-    else{
-        //increment the number of elements in the heap
-        heap -> total_elements += 1;
-        //insert the data value into the left most position in the heap
-        heap -> data[heap -> total_elements] = x;
-        //put in appropriate position by bubbling up
-        bubble_up(heap, heap -> total_elements);
-
+    void heapify_delete() {
+        int i = 0;
+        while (i < index && (childRight(i) <= index || childLeft(i) <= index)) {
+            int l = childLeft(i);
+            int r = childRight(i);
+            if (i < index && l <= index && r <= index &&
+                (compare(heap_ar[l], heap_ar[i]) || compare(heap_ar[r], heap_ar[i]))) {
+                if (compare(heap_ar[l], heap_ar[r])) {
+                    swap(heap_ar[i], heap_ar[l]);
+                    i = childLeft(i);
+                } else {
+                    swap(heap_ar[i], heap_ar[r]);
+                    i = childRight(i);
+                }
+            } else if (i <= index && r > index && l <= index && (compare(heap_ar[l], heap_ar[i]))) {
+                swap(heap_ar[i], heap_ar[l]);
+                i = childLeft(i);
+            } else if (i < index && l > index && r <= index && (compare(heap_ar[r], heap_ar[i]))) {
+                swap(heap_ar[i], heap_ar[r]);
+                i = childRight(i);
+            } else
+                break;
+        }
     }
-}
 
-int main(int argc, char const *argv[]){
-    heap *my_heap = malloc(sizeof(heap));
+public:
+    Heap(int s, bool m) {
+        size = s;
+        index = -1;
+        max = m;
+    }
 
-    heap_init(my_heap);
+//    void print() {
+//        if (index > -1) {
+//            for (int i = 0; i <= index; i++)
+//                cout << heap_ar[i] << " ";
+//            cout << endl;
+//            return;
+//        }
+//        cout << "Empty";
+//    }
 
-    int my_elements[] = {7,34,31,49};
+    void insert(int element) override {
+        if (index >= size - 1) {
+            cout << "Heap is full.Cannot insert " << element << endl;
+            return;
+        }
+        index++;
+        heap_ar[index] = element;
+        if (index > 0) heapify_insert(index);
+    }
 
-    make_heap(my_heap,my_elements,4);
-    print_heap(my_heap);
-    printf("%d\n",get_minimum(my_heap));
-    remove_minimum(my_heap);
-    print_heap(my_heap);
-    printf("%d\n",my_heap -> total_elements);
-    free(my_heap);
-}
+    int get() override {
+        if (index > -1) return heap_ar[0];
+        return -1;
+    }
+
+    int deleteElement() override {
+        if (index < 0)
+            return -1;
+        int element = heap_ar[0];
+        int temp = heap_ar[index];
+        heap_ar[0] = temp;
+        index--;
+        if (index > 0) heapify_delete();
+        return element;
+    }
+};
+
+
+/*int main() {
+    heap *heap = new Heap(6, true);
+    vector<int> arr = {10, 30, 40, 50, 60, 80};
+    for (auto f:arr) {
+        heap->insert(f);
+    }
+    heap->insert(90);
+    cout << heap->deleteElement() << endl;
+    heap->insert(100);
+    cout << heap->get() << endl;
+    cout << heap->deleteElement() << endl;
+    cout << heap->deleteElement() << endl;
+    cout << heap->deleteElement() << endl;
+    cout << heap->deleteElement() << endl;
+//    cout << heap->deleteElement() << endl;
+//    cout << heap->deleteElement() << endl;
+    return 0;
+}*/
