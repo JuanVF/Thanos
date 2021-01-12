@@ -9,22 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Model/Acciones.cpp \
-    Model/RangoEtario.cpp \
+    Model/Mundo/Acciones.cpp \
+    Model/Mundo/RangoEtario.cpp \
     Model/Enemies/Nebula.cpp \
-    Model/Enums/eGenero.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
     Model/dataStructures/LinkedList.cpp \
     Model/dataStructures/Queue.cpp \
     Model/dataStructures/Tree.cpp \
     Model/dataStructures/TreeNode.cpp \
+    Model/dataStructures/datastructures.cpp \
     Model/dataStructures/node.cpp \
-    Model/ejercicio.cpp \
+    Model/Mundo/ejercicio.cpp \
     Model/emailsender.cpp \
-    Model/estado.cpp \
-    Model/familia.cpp \
-    Model/genero.cpp \
+    Model/Mundo/familia.cpp \
     Model/jsonmanager.cpp \
     Model/Mundo/mundo.cpp \
     Model/Mundo/persona.cpp \
@@ -36,22 +34,20 @@ SOURCES += \
 
 HEADERS += \
     Controller/mainwindow.h \
-    Model/Acciones.h \
-    Model/RangoEtario.h \
+    Model/Mundo/Acciones.h \
+    Model/Mundo/RangoEtario.h \
     Model/Enemies/Nebula.h \
-    Model/Enums/eGenero.h \
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
     Model/dataStructures/LinkedList.h \
     Model/dataStructures/Queue.h \
     Model/dataStructures/Tree.h \
     Model/dataStructures/TreeNode.h \
+    Model/dataStructures/datastructures.h \
     Model/dataStructures/node.h \
-    Model/ejercicio.h \
+    Model/Mundo/ejercicio.h \
     Model/emailsender.h \
-    Model/estado.h \
-    Model/familia.h \
-    Model/genero.h \
+    Model/Mundo/familia.h \
     Model/jsonmanager.h \
     Model/Mundo/mundo.h \
     Model/Mundo/persona.h \

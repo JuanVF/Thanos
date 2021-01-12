@@ -18,6 +18,9 @@
 #include <time.h>
 
 using namespace std;
+
+#include <Model/dataStructures/datastructures.h>
+
 #endif
 
 /////////////////////////Enums////////////////////////////////////
@@ -59,6 +62,12 @@ enum eGenero{
     mujer,
 };
 
+enum eEstadoMarital{
+    soltero,
+    casado,
+    divorciado,
+};
+
 /*
     Constantes
 */
@@ -68,14 +77,6 @@ const string APP_FILES_DIR = dir.homePath().toStdString() + "/documents/thanos/"
 /*
     Aqui vamos a declarar las clases y estructuras que se van a utilizar en toda la progra
 */
-template <typename Data> struct CircularList;
-template <typename Data> struct LinkedList;
-template <typename Data> struct Node;
-template <typename Data> struct Queue;
-template <typename Key, typename Value> struct Hashmap;
-template <typename Key, typename Value> struct Pairs;
-struct TreeNode;
-struct Tree;
 class Mundo;
 class Persona;
 class Acciones;
@@ -104,20 +105,21 @@ public:
     string * experiencias;
     LinkedList<Persona *> * amigos;
     Ubicacion * ubicacion;
+    RangoEtario * edad;
+    eEstadoMarital estado;
+    Familia * familia;
     // Ejercicio * salud;
-    // Familia * familia;
-    // eEstadoMarital estado;
-    // RangoEtario * edad;
     // Acciones * acciones;
     eGenero genero;
 
     void generarPecados();
     void generarBuenasAcciones();
-    Persona(int _ID, eGenero _genero, string nombre, string _creencia, string _profesion, Ubicacion * ub);
+    Persona(int _ID, eGenero _genero, string _nombre, string _apellido, string _creencia, string _profesion, Ubicacion * ub);
     bool amigosComun(Persona * persona);
 
     void generarAmigos(LinkedList<Persona *> * personas);
     void generarAcciones();
+    void generarEstado();
 
     int getID();
     static int getID(Persona * persona);
@@ -145,6 +147,7 @@ public:
     void generateTree();
     void printHumans();
     void generateFriends();
+    void generateFamilies();
 
     // Consultas al mundo
     Persona * getById(int ID);
@@ -169,8 +172,8 @@ public:
 
 class Ubicacion{
 public:
-    string * continente;
-    string * pais;
+    string continente;
+    string pais;
     Ubicacion();
     Ubicacion(string _pais, string _continente);
 };
@@ -182,17 +185,6 @@ private:
 public:
     Ejercicio();
 };
-
-class Familia{
-private:
-    Persona conyugue;
-    LinkedList<Persona*> *hijos;
-public:
-    Familia();
-    void generarConyugue();
-    void generarHijos();
-};
-
 
 class JsonManager{
 
@@ -227,9 +219,6 @@ public:
     bool sendEmail(string name, string toName, string to, string subject, string body);
 };
 
-//////////////////////////Codigo de Maximo/////////////////////////
-
-///////////////////////////Clases///////////////////
 class Acciones{
 private:
     enum Pecados pecados;
@@ -245,17 +234,55 @@ public:
 
 class RangoEtario{
 public:
-    enum RangosEtarios rango;
-    int  edad;
+    RangosEtarios rango;
+    int edad;
     int fechaDeNacimiento[3];
     int seleccionarRangoViajes();
     string rango_etario;
 
+    RangoEtario(){};
     bool isLeap(int num);    
     void generarFecha();
     void asignarRango();
 
-
-    
+    static bool esMenor(RangosEtarios rango);
+    static bool puedeSerHijo(RangosEtarios padre, RangosEtarios hijo);
 };
-///////////////////////////////////////////////////
+
+class Familia{
+public:
+    Persona * persona;
+    Persona * conyugue;
+    LinkedList<Persona*> *hijos;
+    Familia(Persona * _persona);
+    void generarConyugue(vector<Persona *> personas);
+    void generarHijos(vector<Persona *> personas);
+    static bool estaEnSusHijos(int ID, Persona * persona);
+};
+
+
+struct Tree{
+    TreeNode * raiz;
+
+    Tree();
+    Tree(Node<Persona *> * persona);
+
+    // Funciones
+    static int nodosNecesarios(int cant);
+    static Tree * generateTree(LinkedList<Node<Persona *>*> * list);
+    static void generateHashmap(LinkedList<Node<Persona *>*> * list, Hashmap<int, LinkedList<Node<Persona *>*> *> * hashmap, int level);
+
+    int cantidadNodos();
+    int cantidadNodos(TreeNode * tmp);
+    Hashmap<int, LinkedList<Persona *> *> * niveles();Persona * obtenerAux(int indice, TreeNode * tmp);
+
+    void niveles(Hashmap<int, LinkedList<Persona *> *> * hashmap, TreeNode * tmp, int level);
+    void insertar(Node<Persona *> * persona, TreeNode * * tmp);
+    void insertar(Node<Persona *> * persona);
+
+    Persona * busquedaIterativa(int indice, TreeNode * tmp, bool isRight);
+    Persona * obtener(int indice);
+    Persona * obtenerRandom();
+    Persona * obtenerRandomAux(TreeNode * tmp);
+    Persona * busquedaRandIterativa(TreeNode * tmp, bool isRight);
+};

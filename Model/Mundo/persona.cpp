@@ -1,16 +1,38 @@
 #include <Model/thanos.h>
-#include <Model/dataStructures/LinkedList.h>
 #include <Model/utils.h>
+#include <Model/dataStructures/LinkedList.h>
+#include <Model/Mundo/RangoEtario.h>
+#include <Model/Mundo/familia.h>
 
-Persona::Persona(int _ID, eGenero _genero, string _nombre, string _creencia, string _profesion, Ubicacion * ub){
+Persona::Persona(int _ID, eGenero _genero, string _nombre, string _apellido, string _creencia, string _profesion, Ubicacion * ub){
     ID = _ID;
     nombre = _nombre;
+    apellido = _apellido;
     genero = _genero;
     creencia = _creencia;
     profesion = _profesion;
     ubicacion = ub;
 
     amigos = new LinkedList<Persona *>();
+    edad = new RangoEtario();
+    familia = new Familia(this);
+
+    edad->generarFecha();
+    edad->asignarRango();
+
+    generarEstado();
+}
+
+void Persona::generarEstado(){
+    int probEstado = Utils::getRandom(0, 100);
+
+    if (probEstado < 10 || RangoEtario::esMenor(edad->rango)){
+        estado = soltero;
+    } else if (probEstado < 20){
+        estado = divorciado;
+    } else {
+        estado = casado;
+    }
 }
 
 // Retorna la ID de una persona

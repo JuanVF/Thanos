@@ -61,41 +61,17 @@ int Utils::getUnitRandom(int min, int max){
 // Genera un random entre min y max
 // si min > max o viceversa se ajustan
 float Utils::getRandom(int min, int max){
-    float rst = 0;
-    bool isSigned = min < 0 || max < 0;
-
-    // Evitamos que el minimo sea mayor al maximo
-    min = (min > max) ? max : min;
-
-    // Generamos numeros aleatorios menores a la base del max
-    int a = min % 10, b = max % 10;
-
-    int length = len(max);
-    int minB = min, maxB = max;
-
-    for (int i = 0; i < length - 1; i++){
-        a = minB % 10;
-        b = maxB % 10;
-
-        rst += getUnitRandom(0, 9) * pow(10, i);
-
-        minB = minB / 10;
-        maxB = maxB / 10;
+    if (min > max){
+        int tmp = max;
+        max = min;
+        min = tmp;
     }
 
-    a = (isSigned) ? 0 : minB % 10;
-    b = maxB % 10;
+    unsigned seed1 = std::chrono::system_clock::now().time_since_epoch().count();
+    mt19937 gen(seed1 * getUnitRandom(1, 9) * 7); // seed the generator
+    uniform_int_distribution<> distr(min, max); // define the range
 
-    rst += pow(10, length - 1) * getUnitRandom(a, b);
-
-    if (isSigned){
-        int prob = getUnitRandom(0, 9);
-
-        rst = (prob >= 5) ? rst * -1 : rst;
-    }
-
-    rst = (rst < min) ? min : rst;
-    rst = (rst > max) ? max : rst;
+    int rst = (int) distr(gen);
 
     return rst;
 }

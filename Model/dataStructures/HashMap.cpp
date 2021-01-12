@@ -17,7 +17,7 @@ struct Pairs{
 // Cualquier cambio a esa estructura hay que validar que no afecte al Hashmap
 template <typename Key, typename Value>
 struct Hashmap{
-private:
+public:
     int groups;
     vector<LinkedList<Pairs<Key, Value> *> *> list;
 
@@ -50,7 +50,6 @@ private:
         tmp->prev = NULL;
 
     }
-public:
     // Crea un hashmap de 1000 grupos
     Hashmap(){
         groups = 1000;
@@ -93,7 +92,7 @@ public:
     Value set(Key key, Value value){
         int hashKey = hashFunction(key);
 
-        Value * val = NULL;
+        Value val = NULL;
 
         if (list[hashKey] == NULL){
             list[hashKey] = new LinkedList<Pairs<Key, Value> *>(new Pairs<Key, Value>(key, value));

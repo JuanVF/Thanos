@@ -18,6 +18,7 @@ Mundo::Mundo(){
 
     nombresMasc.resize(200);
     nombresFem.resize(200);
+    apellidos.resize(100);
 
     loadData();
 }
@@ -43,6 +44,7 @@ void Mundo::loadData(){
 
     nombresMasc = (json.getNames(hombre))->toVector();
     nombresFem = (json.getNames(mujer))->toVector();
+    apellidos = (json.getByString(json.apellidosPath, apellidos.size()))->toVector();
 }
 
 // Genera los humanos del mundo
@@ -90,11 +92,12 @@ Persona * Mundo::generateHuman(int ID){
 
     eGenero genero = (probGen > 50) ? hombre : mujer;
     string nombre = (genero == hombre) ? nombresMasc[in] : nombresFem[in];
+    string apellido = apellidos[Utils::getRandom(0, apellidos.size() - 1)];
     string creencia = creencias[Utils::getRandom(0, creencias.size() - 1)];
     string profesion = profesiones[Utils::getRandom(0, profesiones.size() - 1)];
     Ubicacion * ubicacion = paises[Utils::getRandom(0, paises.size() - 1)];
 
-    return new Persona(ID, genero, nombre, creencia, profesion, ubicacion);
+    return new Persona(ID, genero, nombre, apellido, creencia, profesion, ubicacion);
 }
 
 // Esta funcion genera el arbol del mundo
@@ -135,6 +138,20 @@ void Mundo::generateFriends(){
     }
 }
 
+void Mundo::generateFamilies(){
+    vector<Persona *> tmp = personas->toVector();
+
+    int amount = 0;
+    for (int i = 0; i < (int) tmp.size(); i++){
+        tmp[i]->familia->generarConyugue(tmp);
+        tmp[i]->familia->generarHijos(tmp);
+
+        if (tmp[i]->familia->hijos->length > 0) amount++;
+    }
+
+    cout << "Personas con mas de un hijo: " << amount << endl;
+}
+
 // Retorna una persona por su ID
 Persona * Mundo::getById(int ID){
     return arbol->obtener(ID);
@@ -157,10 +174,22 @@ void Mundo::printHumans(){
 
     for (int i = 0; i < personas->length; i++){
         int current = tmp->data->getID();
-        cout << "ID#" << current << ", Nombre: " <<tmp->data->nombre << endl;
+
+        int anio = tmp->data->edad->fechaDeNacimiento[2];
+        int mes = tmp->data->edad->fechaDeNacimiento[1];
+        int dia = tmp->data->edad->fechaDeNacimiento[0];
+
+        Persona * cong = tmp->data->familia->conyugue;
+
+        string conyugue = (cong == NULL) ? "N/A" : cong->nombre + " " + cong->apellido;
+        int IDCong = (cong == NULL) ? 0 : cong->ID;
+
+        cout << "ID#" << current << ", Nombre: " <<tmp->data->nombre << " " << tmp->data->apellido << endl;
         cout << "Creencia: " << tmp->data->creencia << endl;
         cout << "Profesion: " << tmp->data->profesion << endl;
         cout << "Pais: " << tmp->data->ubicacion->pais << endl;
+        cout << "Fecha nacimiento: " << anio << "/" << mes << "/" << dia << endl;
+        cout << "Conyugue: " << conyugue << ", ID: " << IDCong << endl;
         cout << "--------------------------------------------------" << endl;
         cout << "Amigos: " << endl;
 
@@ -168,6 +197,13 @@ void Mundo::printHumans(){
             cout << "ID#" << tmp->data->amigos->get(j)->ID << ", Nombre: " <<tmp->data->amigos->get(j)->nombre << endl;
         }
 
+        cout << "--------------------------------------------------" << endl;
+        cout << "Hijos: " << endl;
+
+
+        for (int j = 0; j < tmp->data->familia->hijos->length; j++){
+            cout << "ID#" << tmp->data->familia->hijos->get(j)->ID << ", Nombre: " <<tmp->data->familia->hijos->get(j)->nombre << endl;
+        }
         cout << "--------------------------------------------------" << endl << endl;
 
         last = current;

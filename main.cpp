@@ -7,9 +7,6 @@
 
 int test();
 int openApp(int argc, char *argv[]);
-void getLevels(LinkedList<Node<Persona *>*> * list, Hashmap<int, LinkedList<Node<Persona *>*> *> * hashmap, int level);
-
-
 
 int main(int argc, char *argv[]){
     //int toRet = openApp(argc, argv);
@@ -20,29 +17,23 @@ int main(int argc, char *argv[]){
 }
 
 int test(){
-    // Tests de performance
-    // Esto lo pueden borrar era solo para testear :P
     Mundo * mundo = new Mundo();
-
     float time = clock();
-
-    mundo->generateHumans(100);
-
+    mundo->generateHumans(10000);
     float since = (clock() - time)/1000.0;
 
     cout << "Tiempo en generar humanos: " << since << "s" << endl;
-
-    time = clock();
     mundo->generateTree();
-    since = (clock() - time)/1000.0;
 
-    cout << "Tiempo en generar arbol: " << since << "s" << endl;
-
-    time = clock();
+    /*time = clock();
     mundo->generateFriends();
     since = (clock() - time)/1000.0;
+    cout << "Tiempo en generar amigos: " << since << "s" << endl;*/
 
-    cout << "Tiempo en generar amigos: " << since << "s" << endl;
+    time = clock();
+    mundo->generateFamilies();
+    since = (clock() - time)/1000.0;
+    cout << "Tiempo en generar familia: " << since << "s" << endl;
 
     mundo->printHumans();
 
