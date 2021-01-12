@@ -43,7 +43,7 @@ void RangoEtario::generarFecha(){
 
 //Esta  funcion se encarga de asignar el rango de acuerdo a la edad
 void RangoEtario::asignarRango(){
-    int edad = 2020 - fechaDeNacimiento[2];
+    edad = 2020 - fechaDeNacimiento[2];
     if (edad<2){
         rango_etario = static_cast<RangosEtarios>(0) ;
     }
@@ -70,6 +70,30 @@ void RangoEtario::asignarRango(){
     }
     else rango_etario = static_cast<RangosEtarios>(8);
 }
+
+//Setear la edad directamente
+void RangoEtario::setEdad(int num){
+    edad = num;
+    fechaDeNacimiento[2]= 2020-num;
+}
+
+
+void RangoEtario::setEdadEtapa(string etapa){
+    if (etapa == "hijo"){
+        fechaDeNacimiento[2] = Utils().getRandom(2000, 2020);
+    }
+    else if (etapa == "padre"){
+        fechaDeNacimiento[2] = Utils().getRandom(1975, 1995);
+    }
+    else if (etapa == "abuelo"){
+        fechaDeNacimiento[2] = Utils().getRandom(1955, 1970);
+    }
+    else if (etapa == "bisabuelo"){
+        fechaDeNacimiento[2] = Utils().getRandom(1935, 1950);
+    }
+}
+
+
 
 
 

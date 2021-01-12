@@ -240,7 +240,7 @@ enum RangosEtarios{
     adultoMayor
 };
 
-///////////////////////////Clases///////////////////
+/////////////Clases////////
 class Acciones{
 private:   
     Hashmap<string ,int > *listaPecados;
@@ -270,17 +270,25 @@ public:
 
     bool isLeap(int num);    
     void generarFecha();
+    void setEdad(int num);
     void asignarRango();
+
+    //  Nota.
+    //  Esta funcion se encargara de cambiar la edad en caso de que se quiera una etapa especifica al formar la familia
+    //  Las etapas son: bisabuelo, abuelo, padre, hijo
+
+    void setEdadEtapa(string etapa);
 
 };
 
 class PaisesVisitados{
 private:
-    string listaPaisesVisitados[50];
+    LinkedList<Ubicacion *> * listaPaisesVisitados;
+    //string listaPaisesVisitados[50];
 public:
     int seleccionarRangoViajes();
     void seleccionarPaisesRandom();
-    void agregarPaises();
+    void generarPaises();
 
 };
 

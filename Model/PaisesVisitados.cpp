@@ -2,6 +2,7 @@
 #include <string>
 #include <Model/utils.h>
 #include <Model/thanos.h>
+//#include <Model/jsonmanager.h>
 
 
 // Rango 1 = 30%    | 0-2 paises visitados
@@ -26,4 +27,9 @@ int PaisesVisitados::seleccionarRangoViajes(){
         return Utils().getRandom(16,25);
     }
     else return Utils().getRandom(26,50);;
+}
+
+void PaisesVisitados::generarPaises(){
+    int totalPaises = seleccionarRangoViajes();
+    listaPaisesVisitados = JsonManager().getPaises(totalPaises);
 }

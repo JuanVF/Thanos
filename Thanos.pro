@@ -14,8 +14,9 @@ SOURCES += \
     Model/RangoEtario.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
-    Model/dataStructures/Heap.cpp \
     Model/dataStructures/LinkedList.cpp \
+    Model/dataStructures/MaxHeap.cpp \
+    Model/dataStructures/MinHeap.cpp \
     Model/dataStructures/Queue.cpp \
     Model/dataStructures/Tree.cpp \
     Model/dataStructures/TreeNode.cpp \
@@ -41,8 +42,9 @@ HEADERS += \
     Model/RangoEtario.h \
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
-    Model/dataStructures/Heap.h \
     Model/dataStructures/LinkedList.h \
+    Model/dataStructures/MaxHeap.h \
+    Model/dataStructures/MinHeap.h \
     Model/dataStructures/Queue.h \
     Model/dataStructures/Tree.h \
     Model/dataStructures/TreeNode.h \
