@@ -12,6 +12,7 @@ SOURCES += \
     Model/Mundo/Acciones.cpp \
     Model/Mundo/RangoEtario.cpp \
     Model/Enemies/Nebula.cpp \
+    Model/Mundo/paisesvisitados.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
     Model/dataStructures/LinkedList.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     Model/Mundo/Acciones.h \
     Model/Mundo/RangoEtario.h \
     Model/Enemies/Nebula.h \
+    Model/Mundo/paisesvisitados.h \
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
     Model/dataStructures/LinkedList.h \

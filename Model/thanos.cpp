@@ -71,8 +71,7 @@ enum eEstadoMarital{
 /*
     Constantes
 */
-QDir dir;
-const string APP_FILES_DIR = dir.homePath().toStdString() + "/documents/thanos/";
+const string APP_FILES_DIR = QDir::homePath().toStdString() + "/documents/thanos/";
 
 /*
     Aqui vamos a declarar las clases y estructuras que se van a utilizar en toda la progra
@@ -103,14 +102,15 @@ public:
     string creencia;
     string profesion;
     string * experiencias;
-    LinkedList<Persona *> * amigos;
-    Ubicacion * ubicacion;
-    RangoEtario * edad;
-    eEstadoMarital estado;
-    Familia * familia;
-    // Ejercicio * salud;
-    // Acciones * acciones;
     eGenero genero;
+    eEstadoMarital estado;
+    Acciones * acciones;
+    Ejercicio * deporte;
+    Familia * familia;
+    RangoEtario * edad;
+    Ubicacion * ubicacion;
+    vector<Ubicacion *> turismo;
+    LinkedList<Persona *> * amigos;
 
     void generarPecados();
     void generarBuenasAcciones();
@@ -135,12 +135,13 @@ public:
     vector<string> apellidos;
     vector<string> creencias;
     vector<string> profesiones;
+    vector<string> deportes;
     vector<Ubicacion *> paises;
     vector<int> selectedIDs;
 
     Mundo();
 
-    void reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises);
+    void reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises, int _deportes);
     void loadData();
     void generateHumans(int amount);
     Persona * generateHuman(int ID);
@@ -179,11 +180,12 @@ public:
 };
 
 class Ejercicio{
-private:
-    int cantidad;
-    LinkedList<string*> *deportes;
 public:
+    vector<string> deportes;
+    int cantidad;
+
     Ejercicio();
+    void generarDeportes(vector<string> deportes);
 };
 
 class JsonManager{
@@ -221,14 +223,16 @@ public:
 
 class Acciones{
 private:
-    enum Pecados pecados;
-    enum Virtudes virtudes;
-    
+    Hashmap<Pecados, int > *listaPecados;
+    Hashmap<Virtudes, int > *listaVirtudes;
 public:
-    //Preguntar si ya con hacerlo asi quedan hechas las listas.
-    void agregarPecados(int num, string sin);
-    void agregarBuenasAcciones(int num, string virtue);
-    void inicializar();
+    Acciones();
+    //Estas funciones le suman un int a los pecados que ya tenian
+    void agregarPecados(int num, Pecados sin);
+    void agregarBuenasAcciones(int num, Virtudes virtue);
+    //Estas en vez de sumar definen la cantidad de una vez
+    void setPecado(int num, Pecados sin);
+    void setVirtud(int num, Virtudes virtue);
 };
 
 
@@ -285,4 +289,11 @@ struct Tree{
     Persona * obtenerRandom();
     Persona * obtenerRandomAux(TreeNode * tmp);
     Persona * busquedaRandIterativa(TreeNode * tmp, bool isRight);
+};
+
+class PaisesVisitados{
+public:
+    static int seleccionarRangoViajes();
+    static void seleccionarPaisesRandom();
+    static vector<Ubicacion *> generarPaises(vector<Ubicacion *> paises);
 };

@@ -1,4 +1,6 @@
 #include <Model/thanos.h>
+#include <Model/Mundo/ejercicio.h>
+#include <Model/Mundo/paisesvisitados.h>
 #include <Model/jsonmanager.h>
 #include <Model/dataStructures/Tree.h>
 #include <Model/utils.h>
@@ -19,6 +21,7 @@ Mundo::Mundo(){
     nombresMasc.resize(200);
     nombresFem.resize(200);
     apellidos.resize(100);
+    deportes.resize(63);
 
     loadData();
 }
@@ -26,10 +29,11 @@ Mundo::Mundo(){
 // Esta funcion se encarga de iniciar los datos...
 // Si el mundo ya fue iniciado y se vuelve a llamar esta funcion
 // borra TODOS los datos previamente cargados
-void Mundo::reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises){
+void Mundo::reLoad(int _nombres, int _apellidos, int _creencias, int _profesiones, int _paises, int _deportes){
     paises.resize(_paises);
     creencias.resize(_creencias);
     profesiones.resize(_profesiones);
+    deportes.resize(_deportes);
 
     loadData();
 }
@@ -45,6 +49,7 @@ void Mundo::loadData(){
     nombresMasc = (json.getNames(hombre))->toVector();
     nombresFem = (json.getNames(mujer))->toVector();
     apellidos = (json.getByString(json.apellidosPath, apellidos.size()))->toVector();
+    deportes = (json.getByString(json.deportesPath, deportes.size()))->toVector();
 }
 
 // Genera los humanos del mundo
@@ -97,7 +102,11 @@ Persona * Mundo::generateHuman(int ID){
     string profesion = profesiones[Utils::getRandom(0, profesiones.size() - 1)];
     Ubicacion * ubicacion = paises[Utils::getRandom(0, paises.size() - 1)];
 
-    return new Persona(ID, genero, nombre, apellido, creencia, profesion, ubicacion);
+    Persona * persona = new Persona(ID, genero, nombre, apellido, creencia, profesion, ubicacion);
+    persona->deporte->generarDeportes(deportes);
+    persona->turismo = PaisesVisitados::generarPaises(paises);
+
+    return persona;
 }
 
 // Esta funcion genera el arbol del mundo
@@ -190,6 +199,24 @@ void Mundo::printHumans(){
         cout << "Pais: " << tmp->data->ubicacion->pais << endl;
         cout << "Fecha nacimiento: " << anio << "/" << mes << "/" << dia << endl;
         cout << "Conyugue: " << conyugue << ", ID: " << IDCong << endl;
+        cout << "--------------------------------------------------" << endl;
+        cout << "Deportes: " << endl;
+        cout << "Cantidad de veces: " << tmp->data->deporte->cantidad << endl;
+        cout << "Lista: " << endl;
+
+        for (int i = 0; i < tmp->data->deporte->deportes.size(); i++)
+            cout << tmp->data->deporte->deportes[i] << " ";
+        cout << endl;
+
+        cout << "--------------------------------------------------" << endl;
+        cout << "Paises visitados: " << endl;
+
+        for (int i = 0; i < tmp->data->turismo.size(); i++)
+            if (tmp->data->turismo[i] != NULL)
+            if (!tmp->data->turismo[i]->pais.empty())
+                cout << tmp->data->turismo[i]->pais << " ";
+        cout << endl;
+
         cout << "--------------------------------------------------" << endl;
         cout << "Amigos: " << endl;
 

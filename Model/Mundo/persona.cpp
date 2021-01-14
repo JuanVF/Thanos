@@ -21,6 +21,8 @@ Persona::Persona(int _ID, eGenero _genero, string _nombre, string _apellido, str
     edad->asignarRango();
 
     generarEstado();
+
+    deporte = new Ejercicio();
 }
 
 void Persona::generarEstado(){

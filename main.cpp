@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
 int test(){
     Mundo * mundo = new Mundo();
     float time = clock();
-    mundo->generateHumans(10000);
+    mundo->generateHumans(100);
     float since = (clock() - time)/1000.0;
 
     cout << "Tiempo en generar humanos: " << since << "s" << endl;
