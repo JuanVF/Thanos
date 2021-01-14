@@ -6,21 +6,21 @@ Acciones::Acciones(){
     listaPecados = new Hashmap<Pecados,int>;
     listaVirtudes = new Hashmap<Virtudes,int >;
 
-    listaPecados->insert(Lujuria,0);
-    listaPecados->insert(Gula,0);
-    listaPecados->insert(Avaricia,0);
-    listaPecados->insert(Pereza,0);
-    listaPecados->insert(Ira,0);
-    listaPecados->insert(Envidia,0);
-    listaPecados->insert(Soberbia,0);
+    listaPecados->insert(Lujuria, Utils::getRandom(0, 100));
+    listaPecados->insert(Gula, Utils::getRandom(0, 100));
+    listaPecados->insert(Avaricia, Utils::getRandom(0, 100));
+    listaPecados->insert(Pereza, Utils::getRandom(0, 100));
+    listaPecados->insert(Ira, Utils::getRandom(0, 100));
+    listaPecados->insert(Envidia, Utils::getRandom(0, 100));
+    listaPecados->insert(Soberbia, Utils::getRandom(0, 100));
 
-    listaVirtudes->insert(Castidad,0);
-    listaVirtudes->insert(Ayuno,0);
-    listaVirtudes->insert(Donacion,0);
-    listaVirtudes->insert(Diligencia,0);
-    listaVirtudes->insert(Calma,0);
-    listaVirtudes->insert(Solidaridad,0);
-    listaVirtudes->insert(Humildad,0);
+    listaVirtudes->insert(Castidad, Utils::getRandom(0, 100));
+    listaVirtudes->insert(Ayuno, Utils::getRandom(0, 100));
+    listaVirtudes->insert(Donacion, Utils::getRandom(0, 100));
+    listaVirtudes->insert(Diligencia, Utils::getRandom(0, 100));
+    listaVirtudes->insert(Calma, Utils::getRandom(0, 100));
+    listaVirtudes->insert(Solidaridad, Utils::getRandom(0, 100));
+    listaVirtudes->insert(Humildad, Utils::getRandom(0, 100));
 }
 
 void Acciones::agregarBuenasAcciones(int num, Virtudes virtue){

@@ -138,12 +138,10 @@ void Mundo::generateTree(){
 
 // Genera los amigos en el arbol
 void Mundo::generateFriends(){
-    Node<Persona *> * nodo = personas->firstNode;
+    vector<Persona *> vPersonas = personas->toVector();
 
-    for (int i = 0; i < personas->length; i++){
-        nodo->data->generarAmigos(personas);
-
-        nodo = nodo->next;
+    for (int i = 0; i < (int) vPersonas.size(); i++){
+        vPersonas[i]->generarAmigos(vPersonas);
     }
 }
 
@@ -191,9 +189,12 @@ void Mundo::printHumans(){
         Persona * cong = tmp->data->familia->conyugue;
 
         string conyugue = (cong == NULL) ? "N/A" : cong->nombre + " " + cong->apellido;
+        string vivo = (tmp->data->isAlive) ? "Esta vivo" : "Esta muerto";
+
         int IDCong = (cong == NULL) ? 0 : cong->ID;
 
         cout << "ID#" << current << ", Nombre: " <<tmp->data->nombre << " " << tmp->data->apellido << endl;
+        cout << "Vivo: " << vivo << endl;
         cout << "Creencia: " << tmp->data->creencia << endl;
         cout << "Profesion: " << tmp->data->profesion << endl;
         cout << "Pais: " << tmp->data->ubicacion->pais << endl;

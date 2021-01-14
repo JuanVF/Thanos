@@ -3,6 +3,7 @@
 #include <Model/dataStructures/LinkedList.h>
 #include <Model/Mundo/RangoEtario.h>
 #include <Model/Mundo/familia.h>
+#include <Model/Mundo/Acciones.h>
 
 Persona::Persona(int _ID, eGenero _genero, string _nombre, string _apellido, string _creencia, string _profesion, Ubicacion * ub){
     ID = _ID;
@@ -14,6 +15,7 @@ Persona::Persona(int _ID, eGenero _genero, string _nombre, string _apellido, str
     ubicacion = ub;
 
     amigos = new LinkedList<Persona *>();
+    killLog = new LinkedList<string>();
     edad = new RangoEtario();
     familia = new Familia(this);
 
@@ -22,7 +24,10 @@ Persona::Persona(int _ID, eGenero _genero, string _nombre, string _apellido, str
 
     generarEstado();
 
+    isAlive = true;
+
     deporte = new Ejercicio();
+    acciones = new Acciones();
 }
 
 void Persona::generarEstado(){
@@ -62,8 +67,9 @@ bool Persona::amigosComun(Persona * persona){
         Node<Persona *> * tmp = comun->amigos->firstNode;
 
         for (int j = 0; j < comun->amigos->length; j++){
-            if (tmp->data->ID == ID) return true;
-
+            if (tmp->data->ID == ID){
+                return true;
+            }
             tmp = tmp->next;
         }
 
@@ -74,11 +80,12 @@ bool Persona::amigosComun(Persona * persona){
 }
 
 // Genera los amigos de las personas
-void Persona::generarAmigos(LinkedList<Persona *> * personas){
+void Persona::generarAmigos(vector<Persona *> vPersonas){
     int cant = Utils::getRandom(0, 50);
-    int start = Utils::getRandom(0, personas->length - 1);
 
-    vector<Persona *> vPersonas = personas->toVector();
+    if (cant == 0) return;
+
+    int start = Utils::getRandom(0, vPersonas.size() - 1);
 
     for (int i = start; i < (int) vPersonas.size(); i++){
         if (amigos->length >= cant) break;
@@ -89,8 +96,9 @@ void Persona::generarAmigos(LinkedList<Persona *> * personas){
         } else if (Utils::getRandom(0, 100) <= 40){
             amigos->add(vPersonas[i]);
 
-        } else if (amigosComun(vPersonas[i]) & Utils::getRandom(0, 100) <= 70){
+        } else if (Utils::getRandom(0, 100) <= 70 && amigosComun(vPersonas[i])){
             amigos->add(vPersonas[i]);
+            vPersonas[i]->amigos->add(this);
         }
     }
 }

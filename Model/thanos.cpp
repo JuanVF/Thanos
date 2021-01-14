@@ -102,6 +102,7 @@ public:
     string creencia;
     string profesion;
     string * experiencias;
+
     eGenero genero;
     eEstadoMarital estado;
     Acciones * acciones;
@@ -111,13 +112,15 @@ public:
     Ubicacion * ubicacion;
     vector<Ubicacion *> turismo;
     LinkedList<Persona *> * amigos;
+    LinkedList<string> * killLog;
+    bool isAlive;
 
     void generarPecados();
     void generarBuenasAcciones();
     Persona(int _ID, eGenero _genero, string _nombre, string _apellido, string _creencia, string _profesion, Ubicacion * ub);
     bool amigosComun(Persona * persona);
 
-    void generarAmigos(LinkedList<Persona *> * personas);
+    void generarAmigos(vector<Persona *> vPersonas);
     void generarAcciones();
     void generarEstado();
 
@@ -257,16 +260,20 @@ class Familia{
 public:
     Persona * persona;
     Persona * conyugue;
-    LinkedList<Persona*> *hijos;
+    Persona * padre;
+    LinkedList<Persona*> * hijos;
+
     Familia(Persona * _persona);
     void generarConyugue(vector<Persona *> personas);
     void generarHijos(vector<Persona *> personas);
     static bool estaEnSusHijos(int ID, Persona * persona);
+    static Persona * obtenerRaizFamiliar(Persona * persona);
 };
 
 
 struct Tree{
     TreeNode * raiz;
+    static Hashmap<int, Persona*> * cache;
 
     Tree();
     Tree(Node<Persona *> * persona);
@@ -296,4 +303,24 @@ public:
     static int seleccionarRangoViajes();
     static void seleccionarPaisesRandom();
     static vector<Ubicacion *> generarPaises(vector<Ubicacion *> paises);
+};
+
+class Nebula{
+private:
+    Mundo * mundo;
+public:
+    Nebula(Mundo * _mundo);
+
+    void kill();
+    int killAux(Persona * tmp);
+};
+
+class Ebony{
+private:
+    Mundo * mundo;
+public:
+    Ebony(Mundo * _mundo);
+
+    void kill(int ID);
+    int killAux(Persona * tmp);
 };
