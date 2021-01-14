@@ -164,11 +164,80 @@ Persona * Mundo::getById(int ID){
     return arbol->obtener(ID);
 }
 
+vector<Persona *> Mundo::getFamilyById(int ID){
+    Persona * tmp = getById(ID);
+    Persona * _raiz = Familia::obtenerRaizFamiliar(tmp);
+
+    return _raiz->familia->hijos->toVector();
+}
+
 // Retorna la lista de amigos de una persona por su ID
 vector<Persona *> Mundo::getFriendsById(int ID){
     Persona * persona = getById(ID);
 
     return persona->amigos->toVector();
+}
+
+vector<Persona *> Mundo::getBySport(string sport){
+    vector<Persona *> _personas = personas->toVector();
+    LinkedList<Persona *> * lKills = new LinkedList<Persona *>();
+
+    for (int i = 0; i < (int) _personas.size(); i++){
+        if (_personas[i]->deporte->deportes->contains(sport)){
+            lKills->add(_personas[i]);
+        }
+    }
+
+    return lKills->toVector();
+}
+
+int Mundo::getAlivePeople(){
+    vector<Persona *> _personas = personas->toVector();
+    int cant = 0;
+
+    for (int i = 0; i < (int) _personas.size(); i++){
+        cant = (_personas[i]->isAlive) ? cant + 1 : cant;
+    }
+
+    return cant;
+}
+
+int Mundo::getDeathPeople(){
+    vector<Persona *> _personas = personas->toVector();
+    int cant = 0;
+
+    for (int i = 0; i < (int) _personas.size(); i++){
+        cant = (!_personas[i]->isAlive) ? cant + 1 : cant;
+    }
+
+    return cant;
+}
+
+int Mundo::getSavedPeople(){
+    vector<Persona *> _personas = personas->toVector();
+    int cant = 0;
+
+    for (int i = 0; i < (int) _personas.size(); i++){
+        cant = (_personas[i]->savedLog->length > 0) ? cant + 1 : cant;
+    }
+
+    return cant;
+}
+
+Hashmap<int, LinkedList<Persona *> *> * Mundo::getByYears(){
+    Hashmap<int, LinkedList<Persona *> *> * _personas = new Hashmap<int, LinkedList<Persona *> *>();
+    vector<Persona *> vPersonas = personas->toVector();
+
+    for (int i = 0; i < (int) vPersonas.size(); i++){
+        int year = vPersonas[i]->edad->fechaDeNacimiento[2];
+
+        if (_personas->contains(year))
+            _personas->get(year)->add(vPersonas[i]);
+        else
+            _personas->insert(year, new LinkedList<Persona *>(vPersonas[i]));
+    }
+
+    return _personas;
 }
 
 void Mundo::printHumans(){
@@ -205,8 +274,8 @@ void Mundo::printHumans(){
         cout << "Cantidad de veces: " << tmp->data->deporte->cantidad << endl;
         cout << "Lista: " << endl;
 
-        for (int i = 0; i < tmp->data->deporte->deportes.size(); i++)
-            cout << tmp->data->deporte->deportes[i] << " ";
+        for (int i = 0; i < (int) tmp->data->deporte->vDeportes.size(); i++)
+            cout << tmp->data->deporte->vDeportes[i] << " ";
         cout << endl;
 
         cout << "--------------------------------------------------" << endl;

@@ -40,3 +40,25 @@ void Acciones::setVirtud(int num, Virtudes virtue){
 void Acciones::setPecado(int num, Pecados sin){
     listaPecados->set(sin,num);
 }
+
+int Acciones::cantidadPecados(){
+    Pecados pecados[] = {Lujuria, Gula, Avaricia, Pereza, Ira, Envidia, Soberbia};
+    int cant = 0;
+
+    for (int i = 0; i < 7; i++){
+        cant += listaPecados->get(pecados[i]);
+    }
+
+    return cant;
+}
+
+int Acciones::cantidadVirtudes(){
+    Virtudes virtudes[] = {Castidad, Ayuno, Donacion, Diligencia, Calma, Solidaridad, Humildad};
+    int cant = 0;
+
+    for (int i = 0; i < 7; i++){
+        cant += listaVirtudes->get(virtudes[i]);
+    }
+
+    return cant;
+}

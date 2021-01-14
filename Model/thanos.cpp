@@ -97,6 +97,8 @@ class EmailSender;
 class Persona{
 public:
     int ID;
+    int puntosThanos;
+
     string apellido;
     string nombre;
     string creencia;
@@ -113,6 +115,7 @@ public:
     vector<Ubicacion *> turismo;
     LinkedList<Persona *> * amigos;
     LinkedList<string> * killLog;
+    LinkedList<string> * savedLog;
     bool isAlive;
 
     void generarPecados();
@@ -125,7 +128,9 @@ public:
     void generarEstado();
 
     int getID();
+    int getPoints();
     static int getID(Persona * persona);
+    static int getPoints(Persona * persona);
 };
 
 class Mundo{
@@ -162,7 +167,8 @@ public:
     int getAlivePeople();
     int getDeathPeople();
     int getSavedPeople();
-    // El resto de funcionas las generaremos cuando el arbol este listo
+
+    Hashmap<int, LinkedList<Persona *> *> * getByYears();
 };
 
 class Utils{
@@ -184,7 +190,8 @@ public:
 
 class Ejercicio{
 public:
-    vector<string> deportes;
+    vector<string> vDeportes;
+    Hashmap<string, bool> * deportes;
     int cantidad;
 
     Ejercicio();
@@ -236,6 +243,9 @@ public:
     //Estas en vez de sumar definen la cantidad de una vez
     void setPecado(int num, Pecados sin);
     void setVirtud(int num, Virtudes virtue);
+
+    int cantidadPecados();
+    int cantidadVirtudes();
 };
 
 
@@ -323,4 +333,28 @@ public:
 
     void kill(int ID);
     int killAux(Persona * tmp);
+};
+
+class BlackDwarf{
+private:
+    Mundo * mundo;
+public:
+    BlackDwarf(Mundo * mundo);
+
+    void kill(string deporte);
+};
+
+class hashthanos{
+private:
+    Mundo * mundo;
+    Hashmap<int, LinkedList<Persona *> *> * thanos;
+public:
+    hashthanos(Mundo * _mundo);
+
+    void generateHashtable();
+    LinkedList<Persona *> * generateByYear(vector<Persona *> _personas);
+
+    void killByYear(int year);
+    void killByLevel(int level);
+    void killByLevelAndYear(int year, int level);
 };

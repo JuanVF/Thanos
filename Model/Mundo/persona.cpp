@@ -16,6 +16,7 @@ Persona::Persona(int _ID, eGenero _genero, string _nombre, string _apellido, str
 
     amigos = new LinkedList<Persona *>();
     killLog = new LinkedList<string>();
+    savedLog = new LinkedList<string>();
     edad = new RangoEtario();
     familia = new Familia(this);
 
@@ -28,6 +29,8 @@ Persona::Persona(int _ID, eGenero _genero, string _nombre, string _apellido, str
 
     deporte = new Ejercicio();
     acciones = new Acciones();
+
+    puntosThanos = 0;
 }
 
 void Persona::generarEstado(){
@@ -45,6 +48,16 @@ void Persona::generarEstado(){
 // Retorna la ID de una persona
 int Persona::getID(){
     return ID;
+}
+
+// Retorna la ID de una persona
+int Persona::getPoints(Persona * persona){
+    return (persona == NULL) ? 0: persona->getPoints();
+}
+
+// Retorna la ID de una persona
+int Persona::getPoints(){
+    return puntosThanos;
 }
 
 // Dada una persona retorna su ID (se usa para el algoritmo de ordenamiento)
