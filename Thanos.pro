@@ -9,6 +9,9 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Model/Avengers/antman.cpp \
+    Model/Avengers/ironman.cpp \
+    Model/Avengers/spiderman.cpp \
     Model/Enemies/blackdwarf.cpp \
     Model/Enemies/ebony.cpp \
     Model/Enemies/hashthanos.cpp \
@@ -27,17 +30,22 @@ SOURCES += \
     Model/Mundo/ejercicio.cpp \
     Model/emailsender.cpp \
     Model/Mundo/familia.cpp \
+    Model/filemanager.cpp \
     Model/jsonmanager.cpp \
     Model/Mundo/mundo.cpp \
     Model/Mundo/persona.cpp \
     Model/thanos.cpp \
     Model/Mundo/ubicacion.cpp \
+    Model/Avengers/thor.cpp \
     Model/utils.cpp \
     main.cpp \
     Controller/mainwindow.cpp
 
 HEADERS += \
     Controller/mainwindow.h \
+    Model/Avengers/antman.h \
+    Model/Avengers/ironman.h \
+    Model/Avengers/spiderman.h \
     Model/Enemies/blackdwarf.h \
     Model/Enemies/ebony.h \
     Model/Enemies/hashthanos.h \
@@ -56,11 +64,13 @@ HEADERS += \
     Model/Mundo/ejercicio.h \
     Model/emailsender.h \
     Model/Mundo/familia.h \
+    Model/filemanager.h \
     Model/jsonmanager.h \
     Model/Mundo/mundo.h \
     Model/Mundo/persona.h \
     Model/thanos.h \
     Model/Mundo/ubicacion.h \
+    Model/Avengers/thor.h \
     Model/utils.h
 
 FORMS += \

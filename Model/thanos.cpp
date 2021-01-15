@@ -222,6 +222,12 @@ public:
     LinkedList<string> * getNames(eGenero genero, int n);
 };
 
+class FileManager{
+public:
+    static string readFile(string path);
+    static bool saveFile(string data, string path);
+};
+
 class EmailSender{
     const string email = "prograthanos@gmail.com";
     const string password = "laprograthanos";
@@ -357,4 +363,47 @@ public:
     void killByYear(int year);
     void killByLevel(int level);
     void killByLevelAndYear(int year, int level);
+};
+
+class Thor{
+private:
+    Mundo * mundo;
+public:
+    Thor(Mundo * _mundo);
+
+    void save(int level);
+};
+
+class Antman{
+private:
+    Mundo * mundo;
+public:
+    Antman(Mundo * _mundo);
+
+    void save(int amount);
+
+    void saveAux(TreeNode * tmp, LinkedList<Node<Persona *> *> * recorrido);
+};
+
+class IronMan{
+private:
+    Mundo * mundo;
+public:
+    IronMan(Mundo * _mundo);
+
+    void save();
+    void saveAux(TreeNode * tmp);
+    void saveFamilies(Persona * persona);
+};
+
+
+class SpiderMan{
+private:
+    Mundo * mundo;
+public:
+    SpiderMan(Mundo * _mundo);
+
+    void save();
+    void saveAux(TreeNode * tmp, LinkedList<Persona *> * recorrido);
+    void saveLeafs(Node<Persona *> * tmp, int amount);
 };
