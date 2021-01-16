@@ -5,6 +5,8 @@
 
 TreeNode * raiz;
 
+Hashmap<int, Persona*> * Tree::cache = new Hashmap<int, Persona*>();
+
 Tree::Tree(){
     raiz = NULL;
 }
@@ -159,11 +161,9 @@ Persona * Tree::obtenerRandomAux(TreeNode * tmp){
         return NULL;
 
     // Caso llegamos al ultimo nivel
-    if (tmp->hijosNulos()){
-        bool dir = Utils::getUnitRandom(0, 1) == 1;
+    if (tmp->hijosNulos())
+        return tmp->persona->data;
 
-        return busquedaRandIterativa(tmp, dir);
-    }
 
     if (Utils::getRandom(0, 100) < 5) return tmp->persona->data;
 
@@ -194,8 +194,15 @@ Persona * Tree::busquedaRandIterativa(TreeNode * tmp, bool isRight){
 Persona * Tree::busquedaIterativa(int indice, TreeNode * tmp, bool isRight){
     Node<Persona *> * sig = tmp->persona;
 
+    if (cache->contains(indice))
+        return cache->get(indice);
+
     while(sig != NULL){
-        if (sig->data->getID() == indice) return sig->data;
+        if (sig->data->getID() == indice){
+            cache->insert(indice, sig->data);
+
+            return sig->data;
+        }
 
         sig = (isRight) ? sig->next : sig->prev;
     }
@@ -235,7 +242,6 @@ void Tree::insertar(Node<Persona *> * persona, TreeNode * * tmp){
 
         } else {
             (*tmp)->hijoDer = new TreeNode(persona);
-
         }
 
         return;

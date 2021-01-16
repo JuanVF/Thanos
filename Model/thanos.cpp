@@ -97,11 +97,14 @@ class EmailSender;
 class Persona{
 public:
     int ID;
+    int puntosThanos;
+
     string apellido;
     string nombre;
     string creencia;
     string profesion;
     string * experiencias;
+
     eGenero genero;
     eEstadoMarital estado;
     Acciones * acciones;
@@ -111,18 +114,23 @@ public:
     Ubicacion * ubicacion;
     vector<Ubicacion *> turismo;
     LinkedList<Persona *> * amigos;
+    LinkedList<string> * killLog;
+    LinkedList<string> * savedLog;
+    bool isAlive;
 
     void generarPecados();
     void generarBuenasAcciones();
     Persona(int _ID, eGenero _genero, string _nombre, string _apellido, string _creencia, string _profesion, Ubicacion * ub);
     bool amigosComun(Persona * persona);
 
-    void generarAmigos(LinkedList<Persona *> * personas);
+    void generarAmigos(vector<Persona *> vPersonas);
     void generarAcciones();
     void generarEstado();
 
     int getID();
+    int getPoints();
     static int getID(Persona * persona);
+    static int getPoints(Persona * persona);
 };
 
 class Mundo{
@@ -159,7 +167,8 @@ public:
     int getAlivePeople();
     int getDeathPeople();
     int getSavedPeople();
-    // El resto de funcionas las generaremos cuando el arbol este listo
+
+    Hashmap<int, LinkedList<Persona *> *> * getByYears();
 };
 
 class Utils{
@@ -181,7 +190,8 @@ public:
 
 class Ejercicio{
 public:
-    vector<string> deportes;
+    vector<string> vDeportes;
+    Hashmap<string, bool> * deportes;
     int cantidad;
 
     Ejercicio();
@@ -212,6 +222,12 @@ public:
     LinkedList<string> * getNames(eGenero genero, int n);
 };
 
+class FileManager{
+public:
+    static string readFile(string path);
+    static bool saveFile(string data, string path);
+};
+
 class EmailSender{
     const string email = "prograthanos@gmail.com";
     const string password = "laprograthanos";
@@ -233,6 +249,9 @@ public:
     //Estas en vez de sumar definen la cantidad de una vez
     void setPecado(int num, Pecados sin);
     void setVirtud(int num, Virtudes virtue);
+
+    int cantidadPecados();
+    int cantidadVirtudes();
 };
 
 
@@ -257,16 +276,20 @@ class Familia{
 public:
     Persona * persona;
     Persona * conyugue;
-    LinkedList<Persona*> *hijos;
+    Persona * padre;
+    LinkedList<Persona*> * hijos;
+
     Familia(Persona * _persona);
     void generarConyugue(vector<Persona *> personas);
     void generarHijos(vector<Persona *> personas);
     static bool estaEnSusHijos(int ID, Persona * persona);
+    static Persona * obtenerRaizFamiliar(Persona * persona);
 };
 
 
 struct Tree{
     TreeNode * raiz;
+    static Hashmap<int, Persona*> * cache;
 
     Tree();
     Tree(Node<Persona *> * persona);
@@ -296,4 +319,91 @@ public:
     static int seleccionarRangoViajes();
     static void seleccionarPaisesRandom();
     static vector<Ubicacion *> generarPaises(vector<Ubicacion *> paises);
+};
+
+class Nebula{
+private:
+    Mundo * mundo;
+public:
+    Nebula(Mundo * _mundo);
+
+    void kill();
+    int killAux(Persona * tmp);
+};
+
+class Ebony{
+private:
+    Mundo * mundo;
+public:
+    Ebony(Mundo * _mundo);
+
+    void kill(int ID);
+    int killAux(Persona * tmp);
+};
+
+class BlackDwarf{
+private:
+    Mundo * mundo;
+public:
+    BlackDwarf(Mundo * mundo);
+
+    void kill(string deporte);
+};
+
+class hashthanos{
+private:
+    Mundo * mundo;
+    Hashmap<int, LinkedList<Persona *> *> * thanos;
+public:
+    hashthanos(Mundo * _mundo);
+
+    void generateHashtable();
+    LinkedList<Persona *> * generateByYear(vector<Persona *> _personas);
+
+    void killByYear(int year);
+    void killByLevel(int level);
+    void killByLevelAndYear(int year, int level);
+};
+
+class Thor{
+private:
+    Mundo * mundo;
+public:
+    Thor(Mundo * _mundo);
+
+    void save(int level);
+};
+
+class Antman{
+private:
+    Mundo * mundo;
+public:
+    Antman(Mundo * _mundo);
+
+    void save(int amount);
+
+    void saveAux(TreeNode * tmp, LinkedList<Node<Persona *> *> * recorrido);
+};
+
+class IronMan{
+private:
+    Mundo * mundo;
+public:
+    IronMan(Mundo * _mundo);
+
+    void save();
+    void saveAux(TreeNode * tmp);
+    void saveFamilies(Persona * persona);
+};
+
+
+class SpiderMan{
+private:
+    Mundo * mundo;
+public:
+    SpiderMan(Mundo * _mundo);
+
+    void save();
+    void saveAux(TreeNode * tmp, LinkedList<Persona *> * recorrido);
+    void saveLeafs(Node<Persona *> * tmp, int amount);
 };

@@ -311,7 +311,7 @@ struct LinkedList{
 private:
     // Algoritmo recursivo de quick sort
     void sortAux(vector<Node<Data> *> arr, int low, int high, int (*getter)(Data data)){
-        if (low < high){
+        if (low <= high){
             int partIndex = partition(arr, low, high, getter);
 
             sortAux(arr, low, partIndex - 1, getter);

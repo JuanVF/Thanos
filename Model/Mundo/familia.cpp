@@ -5,6 +5,7 @@
 
 Familia::Familia(Persona * _persona){
     conyugue = NULL;
+    padre = NULL;
     persona = _persona;
     hijos = new LinkedList<Persona *>();
 }
@@ -28,7 +29,6 @@ void Familia::generarConyugue(vector<Persona *> personas){
     persona->estado = soltero;
 }
 
-
 void Familia::generarHijos(vector<Persona *> personas){
     int amount = Utils::getRandom(0, 4);
 
@@ -39,9 +39,12 @@ void Familia::generarHijos(vector<Persona *> personas){
 
         Persona * hijo = personas[i];
 
+        if (hijo->familia->padre != NULL) continue;
+
         if (hijo->ID != persona->ID && RangoEtario::puedeSerHijo(persona->edad->rango, hijo->edad->rango)){
             if (hijo->apellido == persona->apellido && !estaEnSusHijos(persona->ID, hijo)){
                 hijos->add(hijo);
+                hijo->familia->padre = persona;
             }
         }
     }
@@ -52,15 +55,25 @@ bool Familia::estaEnSusHijos(int ID, Persona * persona){
 
     if (persona->familia->hijos->length == 0) return false;
 
-    if (persona->ID == ID) return true;
+    if (persona->ID == ID){
+        return true;
+    }
 
     vector<Persona *> vHijos = persona->familia->hijos->toVector();
 
-    for (int i = 0; i < (int) vHijos.size(); i++){
+    for (int i = 0; i < persona->familia->hijos->length; i++){
         bool esta = estaEnSusHijos(ID, vHijos[i]);
 
         if (esta) return true;
     }
 
     return false;
+}
+
+// Obtiene el tataratatarata...abuelo (la raiz de la familia)
+Persona * Familia::obtenerRaizFamiliar(Persona * _persona){
+    if (_persona->familia->padre == NULL)
+        return _persona;
+
+    return obtenerRaizFamiliar(_persona->familia->padre);
 }
