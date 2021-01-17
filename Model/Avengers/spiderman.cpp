@@ -8,10 +8,26 @@ SpiderMan::SpiderMan(Mundo * _mundo){
 }
 
 void SpiderMan::save(){
+    string filename = "spiderman.txt";
+    string log = "Spiderman, salvando personas\n";
+
+    FileManager::saveFile(log, filename);
+
     TreeNode * raiz = mundo->arbol->raiz;
     LinkedList<Persona *> * recorrido = new LinkedList<Persona *>();
 
     saveAux(raiz, recorrido);
+
+    log = FileManager::readFile(filename);
+    log += "Recorrido de la telarania: \n[\n";
+    for (int i = 0; i < recorrido->length; i++){
+        Persona * persona = recorrido->get(i);
+
+        log += "[ID#"+to_string(persona->ID)+", "+persona->nombre+"]->";
+    }
+    log += "]\n";
+
+    FileManager::saveFile(log, filename);
 }
 
 void SpiderMan::saveAux(TreeNode *tmp, LinkedList<Persona *> *recorrido){
@@ -39,6 +55,11 @@ void SpiderMan::saveAux(TreeNode *tmp, LinkedList<Persona *> *recorrido){
 }
 
 void SpiderMan::saveLeafs(Node<Persona *> * tmp, int amount){
+    string filename = "spiderman.txt";
+    string log = FileManager::readFile(filename);
+
+    log += "Salvando en la lista por la hoja:"+to_string(tmp->data->ID)+"\n";
+
     for (int i = 0; i < amount; i++){
         if (tmp == NULL) break;
 
@@ -49,8 +70,11 @@ void SpiderMan::saveLeafs(Node<Persona *> * tmp, int amount){
 
             persona->isAlive = true;
             persona->savedLog->add("Salvado por SpiderMan en la lista");
+            log += "[ID#"+to_string(persona->ID)+", "+persona->nombre+"]\n";
         }
 
         tmp = tmp->next;
     }
+
+    FileManager::saveFile(log, filename);
 }

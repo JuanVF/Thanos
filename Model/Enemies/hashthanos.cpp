@@ -10,14 +10,26 @@ void hashthanos::generateHashtable(){
     Hashmap<int, LinkedList<Persona *> *> * personas = mundo->getByYears();
     Hashmap<int, LinkedList<Persona *> *> * kills = new Hashmap<int, LinkedList<Persona *> *>();
 
+    string filename = "thanos_tabla.txt";
+    string log = "Thanos: Generando la tabla de dispersion\n";
+
     // Generamos la tabla de dispersion
     for (int i = 1935; i <= 2020; i++){
         if (!personas->contains(i)) continue;
+        log += "Anio: " + to_string(i) + " : [ ";
 
         LinkedList<Persona *> * y = generateByYear(personas->get(i)->toVector());
 
+        for (int i = 0; i < y->length; i++){
+            log += y->get(i)->nombre + ", ";
+        }
+
+        log += " ]\n";
+
         kills->insert(i, y);
     }
+
+    FileManager::saveFile(log, filename);
 
     thanos = kills;
 }
@@ -70,6 +82,10 @@ LinkedList<Persona *> * hashthanos::generateByYear(vector<Persona *> _personas){
 void hashthanos::killByLevel(int level){
     if (thanos == NULL) return;
 
+    string filename = "Thanos Nivel#" + Utils::getDate() + ".txt";
+    string log = "Thanos: asesinando por nivel\n";
+    log += "Nivel: " + to_string(level) + "\n";
+
     for (int i = 1935; i < 2020; i++){
         if (!thanos->contains(i)) continue;
 
@@ -77,9 +93,15 @@ void hashthanos::killByLevel(int level){
         if (thanos->get(i)->get(level - 1) == NULL) continue;
         if (!thanos->get(i)->get(level - 1)->isAlive) continue;
 
-        thanos->get(i)->get(level - 1)->isAlive = false;
-        thanos->get(i)->get(level - 1)->killLog->add("Asesinado por Thanos, por estar en el nivel: " + to_string(level));
+        Persona * persona = thanos->get(i)->get(level - 1);
+
+        persona->isAlive = false;
+        persona->killLog->add("Asesinado por Thanos, por estar en el nivel: " + to_string(level));
+
+        log += "[ID#" + to_string(persona->ID) + ", " + persona->nombre + " ]\n";
     }
+
+    FileManager::saveFile(log, filename);
 }
 
 void hashthanos::killByYear(int year){
@@ -87,13 +109,28 @@ void hashthanos::killByYear(int year){
 
     if (!thanos->contains(year)) return;
 
+    string filename = "Thanos Anio#" + Utils::getDate() + ".txt";
+    string log = "Thanos: asesinando por anio\n";
+    log += "Anio: " + to_string(year) + "\n";
+
+    int amount = 0;
+
     for (int i = 0; i < (int) thanos->get(year)->length; i++){
         if (thanos->get(year)->get(i) == NULL) continue;
         if (!thanos->get(year)->get(i)->isAlive) continue;
 
-        thanos->get(year)->get(i)->isAlive = false;
-        thanos->get(year)->get(i)->killLog->add("Asesinado por Thanos, por estar en el anio: " + to_string(year));
+        Persona * persona = thanos->get(year)->get(i);
+
+        persona->isAlive = false;
+        persona->killLog->add("Asesinado por Thanos, por estar en el anio: " + to_string(year));
+        log += "[ID#" + to_string(persona->ID) + ", " + persona->nombre + " ]\n";
+
+        amount++;
     }
+
+    log += "Personas asesinadas: " + to_string(amount) + "\n";
+
+    FileManager::saveFile(log, filename);
 }
 
 void hashthanos::killByLevelAndYear(int year, int level){
@@ -104,7 +141,19 @@ void hashthanos::killByLevelAndYear(int year, int level){
     if (level > (int) thanos->get(year)->length) return;
     if (!thanos->get(year)->get(level - 1)->isAlive) return;
 
-    thanos->get(year)->get(level - 1)->isAlive = false;
+    Persona * persona = thanos->get(year)->get(level - 1);
+
+    string filename = "Thanos #" + Utils::getDate() + ".txt";
+    string log = "Thanos: asesinando por nivel y anio\n";
+    log += "Nivel: " + to_string(level) + ", Anio: " + to_string(year) + "\n";
+
+    log += "Seleccionado: ID#" + to_string(persona->ID) + ", " + persona->nombre + "\n";
+
+    persona->isAlive = false;
     string logMsg = "Asesinado por Thanos, por estar en el nivel: " + to_string(level) + ", y anio: " + to_string(year);
-    thanos->get(year)->get(level - 1)->killLog->add(logMsg);
+    persona->killLog->add(logMsg);
+
+    log += logMsg;
+
+    FileManager::saveFile(log, filename);
 }

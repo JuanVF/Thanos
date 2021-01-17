@@ -63,6 +63,9 @@ void Mundo::generateHumans(int amount){
     int randNum = Utils::getRandom(0, limit);
     int prev = randNum;
 
+    string localLogFile = FileManager::readFile(FileManager::logFile);
+    localLogFile += "Generando " + to_string(amount) + " humanos...\n";
+
     while (generated < amount){
         // Esto se hace por eficiencia (hacer un while para obtener un aleatorio que
         // no este en la lista es algoritmicamente pesado, con esto evitamos que pase menos y sea
@@ -88,10 +91,14 @@ void Mundo::generateHumans(int amount){
     // de otra manera el algoritmo no generara un arbol ordenado
     personas->concat(tmp);
     personas->sort(Persona::getID);
+
+    localLogFile += "Humanos generados...\n";
+    FileManager::saveFile(localLogFile, FileManager::logFile);
 }
 
 // Genera una persona con datos aleatorios
 Persona * Mundo::generateHuman(int ID){
+
     int probGen = Utils::getRandom(0, 100);
     int in = Utils::getRandom(0, 199);
 
@@ -111,6 +118,9 @@ Persona * Mundo::generateHuman(int ID){
 
 // Esta funcion genera el arbol del mundo
 void Mundo::generateTree(){
+    string localLogFile = FileManager::readFile(FileManager::logFile);
+    localLogFile += "Generando el arbol del mundo\n";
+
     vector<Node<Persona*>*> vec = personas->toNodeVector();
     LinkedList<Node<Persona*>*> * lista = new LinkedList<Node<Persona*>*>();
 
@@ -134,18 +144,30 @@ void Mundo::generateTree(){
     }
 
     arbol = Tree::generateTree(lista);
+
+    localLogFile += "Arbol generado...\n";
+    FileManager::saveFile(localLogFile, FileManager::logFile);
 }
 
 // Genera los amigos en el arbol
 void Mundo::generateFriends(){
+    string localLogFile = FileManager::readFile(FileManager::logFile);
+    localLogFile += "Generando amigos\n";
+
     vector<Persona *> vPersonas = personas->toVector();
 
     for (int i = 0; i < (int) vPersonas.size(); i++){
         vPersonas[i]->generarAmigos(vPersonas);
     }
+
+    localLogFile += "Amigos generados...\n";
+    FileManager::saveFile(localLogFile, FileManager::logFile);
 }
 
 void Mundo::generateFamilies(){
+    string localLogFile = FileManager::readFile(FileManager::logFile);
+    localLogFile += "Generando familia\n";
+
     vector<Persona *> tmp = personas->toVector();
 
     int amount = 0;
@@ -156,12 +178,24 @@ void Mundo::generateFamilies(){
         if (tmp[i]->familia->hijos->length > 0) amount++;
     }
 
-    cout << "Personas con mas de un hijo: " << amount << endl;
+    localLogFile += "Personas con mas de un hijo: " + to_string(amount) + "\n";
+    localLogFile += "Familia generada...\n";
+    FileManager::saveFile(localLogFile, FileManager::logFile);
 }
 
 // Retorna una persona por su ID
 Persona * Mundo::getById(int ID){
-    return arbol->obtener(ID);
+    string localLogFile = FileManager::readFile(FileManager::logFile);
+    localLogFile += "Se consulto la ID#" + to_string(ID) + "\n";
+
+    Persona * tmp = arbol->obtener(ID);
+
+    if (tmp == NULL)
+        localLogFile += "La ID es nula...\n";
+
+    FileManager::saveFile(localLogFile, FileManager::logFile);
+
+    return tmp;
 }
 
 vector<Persona *> Mundo::getFamilyById(int ID){
@@ -196,7 +230,7 @@ int Mundo::getAlivePeople(){
     int cant = 0;
 
     for (int i = 0; i < (int) _personas.size(); i++){
-        cant = (_personas[i]->isAlive) ? cant + 1 : cant;
+        cant += _personas[i]->savedLog->length;
     }
 
     return cant;
@@ -207,7 +241,7 @@ int Mundo::getDeathPeople(){
     int cant = 0;
 
     for (int i = 0; i < (int) _personas.size(); i++){
-        cant = (!_personas[i]->isAlive) ? cant + 1 : cant;
+        cant += _personas[i]->killLog->length;
     }
 
     return cant;

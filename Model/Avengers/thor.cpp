@@ -14,6 +14,9 @@ void Thor::save(int level){
         return;
     }
 
+    string filename = "Thor#"+Utils::getDate()+".txt";
+    string log = "Salvando al nivel: "+to_string(level)+"\n";
+
     LinkedList<Persona *> * nivel = niveles->get(level);
     int cant = 0;
 
@@ -22,7 +25,7 @@ void Thor::save(int level){
 
         if (tmp->isAlive) continue;
 
-        cout << "Salvando a: " << tmp->nombre << endl;
+        log += "[ID#"+to_string(tmp->ID)+", "+tmp->nombre+"]\n";
 
         tmp->isAlive = true;
         tmp->savedLog->add("Salvado por Thor por estar en el nivel: " + to_string(level));
@@ -32,7 +35,9 @@ void Thor::save(int level){
 
     double porc = ((double) cant / (double) mundo->personas->length)*100.0;
 
-    cout << "Humanos salvados por Thor: " << cant << endl;
-    cout << "Porcentaje de personas salvadas: " << porc << "%" << endl;
+    log += "Humanos salvados por Thor: " + to_string(cant) + "\n";
+    log += "Porcentaje de personas salvadas: " + to_string(porc) + "%\n";
+
+    FileManager::saveFile(log, filename);
 }
 
