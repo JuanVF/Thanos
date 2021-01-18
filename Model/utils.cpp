@@ -75,3 +75,7 @@ float Utils::getRandom(int min, int max){
 
     return rst;
 }
+
+string Utils::getDate(){
+    return to_string(time(0));
+}

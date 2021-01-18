@@ -8,6 +8,7 @@ IronMan::IronMan(Mundo * _mundo){
 void IronMan::save(){
     TreeNode * raiz = mundo->arbol->raiz;
 
+    FileManager::saveFile("IronMan: empezando a detonar en el arbol\n", "IronMan.txt");
     saveAux(raiz);
 }
 
@@ -19,7 +20,9 @@ void IronMan::saveAux(TreeNode *tmp){
     int fProb = aProb[Utils::getUnitRandom(0, 1)];
 
     if (Utils::getRandom(0, 100) < fProb){
-        cout << "Detono bomba en: " << tmp->persona->data->nombre << endl;
+        Persona * persona = tmp->persona->data;
+        FileManager::appendFile("[ID#"+to_string(persona->ID)+", "+persona->nombre+"] ", "IronMan.txt");
+        FileManager::appendFile("Salvando familia "+persona->apellido+"\n", "IronMan.txt");
         saveFamilies(tmp->persona->data);
     }
 

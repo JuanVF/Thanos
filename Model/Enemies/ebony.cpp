@@ -6,14 +6,18 @@ Ebony::Ebony(Mundo * _mundo){
 }
 
 void Ebony::kill(int ID){
+    string fileName = "Ebony Mau #" + Utils::getDate() + ".txt";
+    string log = "Ebony Maw: Asesinando al humano: ID#" + to_string(ID) + "\n";
+
     Persona * persona = mundo->arbol->obtener(ID);
 
     if (persona == NULL){
-        cout << "Esa ID no existe..." << endl;
+        string log = "La ID#" + to_string(ID) + " no existe...\n";
+        FileManager::saveFile(log, fileName);
         return;
     }
 
-    cout << "Exterminando a la familia: " << persona->apellido << endl;
+    log += "Exterminando a la familia: " + persona->apellido + "\n";
 
     Persona * raiz = Familia::obtenerRaizFamiliar(persona);
 
@@ -24,22 +28,20 @@ void Ebony::kill(int ID){
 
     if (raiz->isAlive){
         raiz->isAlive = false;
-        amount++;
     }
 
-    amount += killAux(raiz);
+    amount += killAux(raiz, &log);
 
     double porc = ((double) amount / (double) mundo->personas->length) * 100;
 
-    cout << "Asesinatos de Ebony: " << amount << endl;
-    cout << "Poblacion total: " << mundo->personas->length << endl;
-    cout << "Porcentaje de asesinatos: " << porc << "%" <<endl;
+    log += "Asesinatos de Ebony: " + to_string(amount) + "\n";
+    log += "Poblacion total: " + to_string(mundo->personas->length) + "\n";
+    log += "Porcentaje de asesinatos: " + to_string(porc) + "%\n";
 
-    if (amount == mundo->personas->length)
-        cout << "Ebony se ha marcado un EXTERMINIO!" << endl;
+    FileManager::saveFile(log, fileName);
 }
 
-int Ebony::killAux(Persona * tmp){
+int Ebony::killAux(Persona * tmp, string * log){
     if (tmp == NULL)
         return 0;
 
@@ -51,9 +53,13 @@ int Ebony::killAux(Persona * tmp){
         if (curr->isAlive){
             curr->isAlive = false;
             amount++;
+            (*log) += "[ID#" + to_string(curr->ID) + ", " + curr->nombre + " " + curr->apellido + "]\n";
+
+        } else {
+            (*log) += "[ID#" + to_string(curr->ID) + ", " + curr->nombre + " " + curr->apellido + ", YA ESTABA MUERTO]\n";
         }
 
-        amount += killAux(tmp->familia->hijos->get(i));
+        amount += killAux(tmp->familia->hijos->get(i), log);
     }
 
     return amount;

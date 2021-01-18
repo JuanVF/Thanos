@@ -74,6 +74,7 @@ enum eEstadoMarital{
     Constantes
 */
 const string APP_FILES_DIR = QDir::homePath().toStdString() + "/documents/thanos/";
+const string APP_LOGS_DIR = QDir::homePath().toStdString() + "/documents/thanos/logs/";
 
 /*
     Aqui vamos a declarar las clases y estructuras que se van a utilizar en toda la progra
@@ -184,6 +185,7 @@ public:
     static int getUnitRandom(int min, int max);
     static int abs(int num);
     static int len(int num);
+    static string getDate();
 };
 
 class Ubicacion{
@@ -230,8 +232,13 @@ public:
 
 class FileManager{
 public:
+    static string logFile;
+    static string avengersFile;
+    static string enemiesFile;
+
     static string readFile(string path);
     static bool saveFile(string data, string path);
+    static bool appendFile(string data, string path);
 };
 
 class EmailSender{
@@ -335,6 +342,8 @@ class Nebula{
 private:
     Mundo * mundo;
 public:
+    static string filename;
+
     Nebula(Mundo * _mundo);
 
     void kill();
@@ -348,7 +357,7 @@ public:
     Ebony(Mundo * _mundo);
 
     void kill(int ID);
-    int killAux(Persona * tmp);
+    int killAux(Persona * tmp, string * log);
 };
 
 class BlackDwarf{
@@ -434,6 +443,7 @@ class SpiderMan{
 private:
     Mundo * mundo;
 public:
+
     SpiderMan(Mundo * _mundo);
 
     void save();

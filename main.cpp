@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
 }
 
 int test(){
-    /*Mundo * mundo = new Mundo();
+    Mundo * mundo = new Mundo();
 
     Nebula * nebula = new Nebula(mundo);
     Ebony * ebony = new Ebony(mundo);
@@ -38,82 +38,34 @@ int test(){
     IronMan * ironman = new IronMan(mundo);
     SpiderMan * spider = new SpiderMan(mundo);
 
-    float time = clock();
+    cout << "Generando humanos" << endl;
     mundo->generateHumans(10000);
-    float since = (clock() - time)/1000.0;
-
-    cout << "Tiempo en generar humanos: " << since << "s" << endl;
+    cout << "Generando arbol" << endl;
     mundo->generateTree();
-
-    time = clock();
+    cout << "Generando amigos" << endl;
     mundo->generateFriends();
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo en generar amigos: " << since << "s" << endl;
-
-    time = clock();
+    cout << "Generando familia" << endl;
     mundo->generateFamilies();
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo en generar familia: " << since << "s" << endl;
-
-    time = clock();
-    nebula->kill();
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Nebula de hacer kills: " << since << "s" << endl;
-
 
     int randID = mundo->arbol->obtenerRandom()->ID;
 
-    time = clock();
     ebony->kill(randID);
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Ebony de hacer kills: " << since << "s" << endl;
-
-    time = clock();
     bd->kill("Parapente");
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Black dwarf de hacer kills: " << since << "s" << endl;
-
-    time = clock();
     thanos->generateHashtable();
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Thanos en generar tabla: " << since << "s" << endl;
 
-    time = clock();
     thanos->killByLevel(0);
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Thanos en asesinar un nivel: " << since << "s" << endl;
-
-    time = clock();
     thanos->killByYear(2020);
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Thanos en asesinar un anio: " << since << "s" << endl;
-
-    time = clock();
     thanos->killByLevelAndYear(2019, 5);
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Thanos en asesinar un nivel y anio: " << since << "s" << endl;
 
-    time = clock();
-    thor->save(5);
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Thor en salvar un nivel: " << since << "s" << endl;
+    nebula->kill();
 
-    time = clock();
     antman->save(10);
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Antman en salvar: " << since << "s" << endl;
 
-    time = clock();
     ironman->save();
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de IronMan en salvar personas: " << since << "s" << endl;
 
-    time = clock();
     spider->save();
-    since = (clock() - time)/1000.0;
-    cout << "Tiempo de Spiderman en salvar: " << since << "s" << endl;
 
-    //mundo->printHumans();*/
+    thor->save(5);
 
     return 0;
 }

@@ -11,6 +11,9 @@ void Antman::save(int amount){
         return;
     }
 
+    string filename = "Antman #" + Utils::getDate() + ".txt";
+    string log = "AntMan, va a salvar con #" + to_string(amount) + " de hormigas\n";
+
     vector<LinkedList<Node<Persona *> *> *> recorridos;
     recorridos.resize(amount);
 
@@ -20,6 +23,17 @@ void Antman::save(int amount){
         saveAux(mundo->arbol->raiz, recorridos[i]);
     }
 
+    // Agregamos al log los recorridos...
+    for (int i = 0; i < (int) recorridos.size(); i++){
+        log += "Recorrido #" + to_string(i + 1) + "\n";
+        for (int j = 0; j < recorridos[i]->length; j++){
+            Persona * persona = recorridos[i]->get(j)->data;
+
+            log += "[ID#" + to_string(persona->ID) + ", " + persona->nombre + "] ->";
+        }
+        log += "\n";
+    }
+
     int firstID = recorridos[0]->get(recorridos[0]->length-1)->data->ID;
     int lastID = recorridos[1]->get(recorridos[1]->length-1)->data->ID;
 
@@ -27,16 +41,19 @@ void Antman::save(int amount){
 
     int goal = (firstID > lastID) ? firstID : lastID;
 
-    cout << "Empezando a rescatar..." << endl;
-    cout << "Empieza en la ID: " << first->data->ID << endl;
-    cout << "Termina en la ID: " << goal << endl;
+    log += "Personas rescatadas por AntMan: \n [\n";
     while (first != NULL && first->data->ID != goal){
-        first->data->savedLog->add("Rescatado por antman");
+        Persona * persona = first->data;
+        persona->savedLog->add("Rescatado por antman");
+
+        log += "[ID#" + to_string(persona->ID) + ", " + persona->nombre + "]\n";
 
         first = first->next;
     }
 
-    // TODO: Agregar archivos
+    log += "]\n";
+
+    FileManager::saveFile(log, filename);
 }
 
 void Antman::saveAux(TreeNode * tmp, LinkedList<Node<Persona *> *> * recorrido){
