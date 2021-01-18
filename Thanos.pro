@@ -13,14 +13,17 @@ SOURCES += \
     Model/Avengers/ironman.cpp \
     Model/Avengers/spiderman.cpp \
     Model/Enemies/blackdwarf.cpp \
+    Model/Enemies/corvusGlaive.cpp \
     Model/Enemies/ebony.cpp \
     Model/Enemies/hashthanos.cpp \
+    Model/Enemies/midnight.cpp \
     Model/Mundo/Acciones.cpp \
     Model/Mundo/RangoEtario.cpp \
     Model/Enemies/Nebula.cpp \
     Model/Mundo/paisesvisitados.cpp \
     Model/dataStructures/CircularList.cpp \
     Model/dataStructures/HashMap.cpp \
+    Model/dataStructures/Heap.cpp \
     Model/dataStructures/LinkedList.cpp \
     Model/dataStructures/Queue.cpp \
     Model/dataStructures/Tree.cpp \
@@ -47,14 +50,17 @@ HEADERS += \
     Model/Avengers/ironman.h \
     Model/Avengers/spiderman.h \
     Model/Enemies/blackdwarf.h \
+    Model/Enemies/corvusGlaive.h \
     Model/Enemies/ebony.h \
     Model/Enemies/hashthanos.h \
+    Model/Enemies/midnight.h \
     Model/Mundo/Acciones.h \
     Model/Mundo/RangoEtario.h \
     Model/Enemies/Nebula.h \
     Model/Mundo/paisesvisitados.h \
     Model/dataStructures/CircularList.h \
     Model/dataStructures/HashMap.h \
+    Model/dataStructures/Heap.h \
     Model/dataStructures/LinkedList.h \
     Model/dataStructures/Queue.h \
     Model/dataStructures/Tree.h \

@@ -158,6 +158,18 @@ void Mundo::generateFamilies(){
 
     cout << "Personas con mas de un hijo: " << amount << endl;
 }
+/*
+Persona * Mundo::getByVirtues(int num){
+   num =0;
+}
+
+Persona * Mundo::getBySins(int num){
+   num=0;
+
+}
+*/
+
+
 
 // Retorna una persona por su ID
 Persona * Mundo::getById(int ID){
