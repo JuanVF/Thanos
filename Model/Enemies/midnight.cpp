@@ -14,7 +14,7 @@ Midnight::Midnight(Mundo * _mundo){
 }
 
 Persona * Midnight::getByVirtues(int num){
-    for (int i=0; i<mundo->personas->length; i++){
+    for (int i=0; i< mundo->personas->length; i++){
         if ((mundo->personas->get(i)->acciones->cantidadVirtudes() == num) and (mundo->personas->get(i)->isAlive)){
             return mundo->personas->get(i);
         }
@@ -22,15 +22,26 @@ Persona * Midnight::getByVirtues(int num){
     return NULL;
 }
 
-
 void Midnight::kill(){
-    int genteAsesinada =0;
-    for(int i=0; i<gentePorMatar;i++){
-        cout<<"Midnight ha asesinado a: "<< mundo->personas->get(i) <<"por su cantidad de virtudes"<<endl;
-        getByVirtues(heap->get())->isAlive = false;;
+    int genteAsesinada = 0;
+    string log = "Midnight: Asesinando a las buenas personas!\n";
+    string filename = "Midnight#"+Utils::getDate()+".txt";
+
+    for(int i=0; i< gentePorMatar; i++){
+        Persona * tmp = getByVirtues(heap->get());
+
+        if (tmp == NULL) continue;
+
+        tmp->isAlive = false;
+        tmp->killLog->add("Fue asesinado por MidNight");
+
+        log += "[ID#"+to_string(tmp->ID)+", "+tmp->nombre+"]\n";
+
         heap->deleteElement();
         genteAsesinada++;
     }
-    cout<<"Midnight ha asesinado a un total de: "<< genteAsesinada <<"personas por sus virtudes"<<endl;
 
+    log += "Corvus Glaive ha asesinado a un total de: " + to_string(genteAsesinada) + "personas por sus pecados\n";
+
+    FileManager::saveFile(log, filename);
 }

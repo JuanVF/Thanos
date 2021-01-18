@@ -168,5 +168,5 @@ void MainWindow::on_btnHuman_clicked(){
 }
 
 void MainWindow::on_btnIDQuery_clicked(){
-
+    int ID = Utils::toInt(getText(ui->leIDQuery));
 }

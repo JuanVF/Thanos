@@ -132,8 +132,11 @@ public:
 
     int getID();
     int getPoints();
+
     static int getID(Persona * persona);
     static int getPoints(Persona * persona);
+
+    string getInfo();
 };
 
 class Mundo{
@@ -174,6 +177,7 @@ public:
     int getAlivePeople();
     int getDeathPeople();
     int getSavedPeople();
+    int getKilledPeople();
 
     Hashmap<int, LinkedList<Persona *> *> * getByYears();
 };

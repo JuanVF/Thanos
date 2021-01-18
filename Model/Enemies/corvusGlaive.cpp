@@ -6,7 +6,7 @@ CorvusGlaive::CorvusGlaive(Mundo * _mundo){
     mundo = _mundo;
     gentePorMatar = (5*mundo->getAlivePeople())/100;
     heap = new Heap(9999999, true);
-
+    cout << mundo->getAlivePeople() << endl;
     for(int i=0; i<mundo->personas->length;i++){
         if(mundo->personas->get(i)->isAlive){
             heap->insert(mundo->personas->get(i)->acciones->cantidadPecados());
@@ -26,12 +26,25 @@ Persona * CorvusGlaive::getBySins(int num){
 
 void CorvusGlaive::kill(){
     int genteAsesinada = 0;
-    for(int i=0; i<gentePorMatar;i++){
-        cout<<"Corvus Glaive ha asesinado a: "<< mundo->personas->get(i) <<"por su cantidad de pecados"<<endl;
-        getBySins(heap->get())->isAlive = false;;
+    string log = "Corvus Glaive: Asesinando a los pecadores!\n";
+    string filename = "CorvusGlaive#"+Utils::getDate()+".txt";
+
+    for(int i=0; i< gentePorMatar; i++){
+        Persona * tmp = getBySins(heap->get());
+
+        if (tmp == NULL) continue;
+
+        tmp->isAlive = false;
+        tmp->killLog->add("Asesinado por Corvus Glaive");
+
+        log += "[ID#"+to_string(tmp->ID)+", "+tmp->nombre+"]\n";
+
         heap->deleteElement();
         genteAsesinada++;
     }
-    cout<<"Corvus Glaive ha asesinado a un total de: "<< genteAsesinada <<"personas por sus pecados"<<endl;
+
+    log += "Corvus Glaive ha asesinado a un total de: " + to_string(genteAsesinada) + "personas por sus pecados\n";
+
+    FileManager::saveFile(log, filename);
 }
 

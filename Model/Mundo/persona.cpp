@@ -115,3 +115,36 @@ void Persona::generarAmigos(vector<Persona *> vPersonas){
         }
     }
 }
+
+string Persona::getInfo(){
+    string estaVivo = (isAlive) ? "Esta vivo" : "Esta muerto";
+
+    string anio = to_string(edad->fechaDeNacimiento[2]);
+    string mes = to_string(edad->fechaDeNacimiento[1]);
+    string dia = to_string(edad->fechaDeNacimiento[0]);
+
+    string conyugue = (familia->conyugue == NULL) ? "N/A" : familia->conyugue->nombre + ", ID#" + to_string(familia->conyugue->ID);
+
+    string info = "Persona: " + nombre + " " + apellido + "\n";
+    info += "ID#" + to_string(ID) + "\n";
+    info += "Vivo: " + estaVivo + "\n";
+    info += "Creencia: " + creencia + "\n";
+    info += "Profesion: " + profesion + "\n";
+    info += "Continente: " + ubicacion->continente + ", Pais: " + ubicacion->pais + "\n";
+    info += "Fecha de nacimiento: " + anio + "/" + mes + "/" + dia + "\n";
+    info += "Conyugue: " + conyugue + "\n";
+    info += "----------------------------------------------\n";
+    info += "Deportes: \n";
+    info += "Cantidad de veces por semana: " + to_string(deporte->cantidad) + "\n";
+    info += "Lista: \n";
+
+    for (int i = 0; i < (int) deporte->vDeportes.size(); i++){
+        info += deporte->vDeportes[i] + " ";
+    }
+
+    info += "\n";
+    info += "----------------------------------------------\n";
+
+
+    return info;
+}

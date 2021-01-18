@@ -182,18 +182,6 @@ void Mundo::generateFamilies(){
     localLogFile += "Familia generada...\n";
     FileManager::saveFile(localLogFile, FileManager::logFile);
 }
-/*
-Persona * Mundo::getByVirtues(int num){
-   num =0;
-}
-
-Persona * Mundo::getBySins(int num){
-   num=0;
-
-}
-*/
-
-
 
 // Retorna una persona por su ID
 Persona * Mundo::getById(int ID){
@@ -242,7 +230,8 @@ int Mundo::getAlivePeople(){
     int cant = 0;
 
     for (int i = 0; i < (int) _personas.size(); i++){
-        cant += _personas[i]->savedLog->length;
+        if (_personas[i]->isAlive)
+            cant ++;
     }
 
     return cant;
@@ -253,7 +242,8 @@ int Mundo::getDeathPeople(){
     int cant = 0;
 
     for (int i = 0; i < (int) _personas.size(); i++){
-        cant += _personas[i]->killLog->length;
+        if (!_personas[i]->isAlive)
+            cant ++;
     }
 
     return cant;
@@ -265,6 +255,17 @@ int Mundo::getSavedPeople(){
 
     for (int i = 0; i < (int) _personas.size(); i++){
         cant = (_personas[i]->savedLog->length > 0) ? cant + 1 : cant;
+    }
+
+    return cant;
+}
+
+int Mundo::getKilledPeople(){
+    vector<Persona *> _personas = personas->toVector();
+    int cant = 0;
+
+    for (int i = 0; i < (int) _personas.size(); i++){
+        cant = (_personas[i]->killLog->length > 0) ? cant + 1 : cant;
     }
 
     return cant;
