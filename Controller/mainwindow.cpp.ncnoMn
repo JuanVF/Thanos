@@ -5,7 +5,6 @@
 #include <Model/Mundo/mundo.h>
 #include <Model/filemanager.h>
 #include <QMessageBox>
-#include <QTreeWidgetItem>
 
 // Estos son las que se encargan de hacer esas validaciones
 // con las Regular Expression
@@ -13,12 +12,11 @@
 QRegularExpressionValidator * floatVal = new QRegularExpressionValidator(QRegularExpression("\\d+(\\.)?(\\d{1,5})?"), NULL);
 QRegularExpressionValidator * intVal = new QRegularExpressionValidator(QRegularExpression("\\d+"), NULL);
 
-int pages = 3;
+int pages = 2;
 
 Mundo * mundo = new Mundo();
 
-void generateTreeView(Ui::MainWindow * ui);
-void addTreeChild(Ui::MainWindow * ui, QTreeWidgetItem * item, TreeNode * tmp);
+void addTreeView();
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -51,51 +49,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     since = (clock() - time)/1000.0;
 
     ui->taLog->appendPlainText(("Familias generadas en " + to_string(since) + " segundos...").c_str());
-
-    generateTreeView(ui);
 }
 
 MainWindow::~MainWindow(){
     delete ui;
-}
-
-// Generamos las vistas del arbol
-void generateTreeView(Ui::MainWindow * ui){
-    ui->WorldTree->setColumnCount(2);
-
-    QStringList labels;
-    labels << "ID" << "Nombres";
-
-    ui->WorldTree->setHeaderLabels(labels);
-
-    QTreeWidgetItem * root = new QTreeWidgetItem(ui->WorldTree);
-
-    Persona * raiz = mundo->arbol->raiz->persona->data;
-
-    root->setText(0, to_string(raiz->ID).c_str());
-    root->setText(1, (raiz->nombre + " " + raiz->apellido).c_str());
-
-    ui->WorldTree->addTopLevelItem(root);
-
-    addTreeChild(ui, root, mundo->arbol->raiz->hijoIzq);
-    addTreeChild(ui, root, mundo->arbol->raiz->hijoDer);
-}
-
-// Generamos los hijos del arbol
-void addTreeChild(Ui::MainWindow * ui, QTreeWidgetItem * item, TreeNode * tmp){
-    if (tmp == NULL) return;
-
-    QTreeWidgetItem * child = new QTreeWidgetItem();
-
-    Persona * raiz = tmp->persona->data;
-
-    child->setText(0, to_string(raiz->ID).c_str());
-    child->setText(1, (raiz->nombre + " " + raiz->apellido).c_str());
-
-    item->addChild(child);
-
-    addTreeChild(ui, child, tmp->hijoIzq);
-    addTreeChild(ui, child, tmp->hijoDer);
 }
 
 // Retorna un string con el texto de un lineedit
@@ -163,10 +120,4 @@ void MainWindow::on_btnHuman_clicked(){
     since = (clock() - time)/1000.0;
 
     ui->taLog->appendPlainText(("Familias generadas en " + to_string(since) + " segundos...").c_str());
-
-    generateTreeView(ui);
-}
-
-void MainWindow::on_btnIDQuery_clicked(){
-
 }

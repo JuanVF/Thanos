@@ -79,3 +79,7 @@ float Utils::getRandom(int min, int max){
 string Utils::getDate(){
     return to_string(time(0));
 }
+
+int Utils::toInt(string num){
+    return stoi(num);
+}

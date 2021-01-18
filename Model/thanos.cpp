@@ -180,6 +180,7 @@ public:
     static int abs(int num);
     static int len(int num);
     static string getDate();
+    static int toInt(string num);
 };
 
 class Ubicacion{
