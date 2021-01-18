@@ -20,6 +20,8 @@
 using namespace std;
 
 #include <Model/dataStructures/datastructures.h>
+#include <Model/dataStructures/Heap.h>
+
 
 #endif
 
@@ -161,6 +163,10 @@ public:
 
     // Consultas al mundo
     Persona * getById(int ID);
+    //nuevos
+    //Persona * getByVirtues(int num);
+    //Persona * getBySins(int num);
+    //
     vector<Persona *> getFamilyById(int ID);
     vector<Persona *> getFriendsById(int ID);
     vector<Persona *> getBySport(string sport);
@@ -257,9 +263,13 @@ public:
     //Estas en vez de sumar definen la cantidad de una vez
     void setPecado(int num, Pecados sin);
     void setVirtud(int num, Virtudes virtue);
-
+    //Estas generan un int random por cada pecados o virtud
+    void agregarPecadosRandom();
+    void agregarVirtudesRandom();
+    //Retorna la cantidad total de pecados o virtudes
     int cantidadPecados();
     int cantidadVirtudes();
+
 };
 
 
@@ -359,6 +369,29 @@ public:
 
     void kill(string deporte);
 };
+
+class Midnight{
+private:
+    Mundo * mundo;
+    Heap * heap;
+    int gentePorMatar;
+public:
+    Midnight(Mundo * _mundo);
+    Persona * getByVirtues(int num);
+    void kill();
+};
+
+class CorvusGlaive{
+private:
+    Mundo * mundo;
+    Heap * heap;
+    int gentePorMatar;
+public:
+    CorvusGlaive(Mundo * _mundo);
+    void kill();
+    Persona * getBySins(int num);
+};
+
 
 class hashthanos{
 private:

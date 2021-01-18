@@ -182,6 +182,18 @@ void Mundo::generateFamilies(){
     localLogFile += "Familia generada...\n";
     FileManager::saveFile(localLogFile, FileManager::logFile);
 }
+/*
+Persona * Mundo::getByVirtues(int num){
+   num =0;
+}
+
+Persona * Mundo::getBySins(int num){
+   num=0;
+
+}
+*/
+
+
 
 // Retorna una persona por su ID
 Persona * Mundo::getById(int ID){

@@ -25,13 +25,21 @@ Acciones::Acciones(){
 
 void Acciones::agregarBuenasAcciones(int num, Virtudes virtue){
     int virtudesAnteriores = listaVirtudes->get(virtue);
-    listaVirtudes->set(virtue,virtudesAnteriores+num);
+    if (virtudesAnteriores+num <= 100){
+        listaVirtudes->set(virtue,virtudesAnteriores+num);
+    }
+    else listaVirtudes->set(virtue, 100);
 }
+
 
 void Acciones::agregarPecados(int num, Pecados sin){
     int pecadosAnteriores = listaPecados->get(sin);
-    listaPecados->set(sin,pecadosAnteriores+num);
+    if (pecadosAnteriores+num <= 100){
+        listaPecados->set(sin,pecadosAnteriores+num);
+    }
+    else listaPecados->set(sin, 100);
 }
+
 
 void Acciones::setVirtud(int num, Virtudes virtue){
     listaVirtudes->set(virtue,num);
@@ -39,6 +47,26 @@ void Acciones::setVirtud(int num, Virtudes virtue){
 
 void Acciones::setPecado(int num, Pecados sin){
     listaPecados->set(sin,num);
+}
+
+void Acciones::agregarPecadosRandom(){
+    Pecados pecados[] = {Lujuria, Gula, Avaricia, Pereza, Ira, Envidia, Soberbia};
+    int random;// = Utils::getRandom(0, 100);
+
+    for(int i=0; i<7; i++){
+        random = Utils::getRandom(0, 100);
+        agregarPecados(random,pecados[i]);
+    }
+}
+
+void Acciones::agregarVirtudesRandom(){
+    Virtudes virtudes[] = {Castidad, Ayuno, Donacion, Diligencia, Calma, Solidaridad, Humildad};
+    int random;
+
+    for(int i=0; i<7; i++){
+        random = Utils::getRandom(0, 100);
+        agregarBuenasAcciones(random,virtudes[i]);
+    }
 }
 
 int Acciones::cantidadPecados(){
@@ -62,3 +90,5 @@ int Acciones::cantidadVirtudes(){
 
     return cant;
 }
+
+
