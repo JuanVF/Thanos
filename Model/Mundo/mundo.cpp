@@ -98,7 +98,6 @@ void Mundo::generateHumans(int amount){
 
 // Genera una persona con datos aleatorios
 Persona * Mundo::generateHuman(int ID){
-
     int probGen = Utils::getRandom(0, 100);
     int in = Utils::getRandom(0, 199);
 

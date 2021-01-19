@@ -92,7 +92,6 @@ public:
 
     void insert(int element) override {
         if (index >= size - 1) {
-            cout << "Heap is full.Cannot insert " << element << endl;
             return;
         }
         index++;

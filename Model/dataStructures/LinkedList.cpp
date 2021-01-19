@@ -5,7 +5,10 @@ template <typename Data>
 struct LinkedList{
 	Node<Data> * firstNode;
 	Node<Data> * lastNode;
-	
+
+    vector<Data> cache;
+    bool isVectorDefined;
+
 	int length;
 	
 	// Constructores
@@ -13,12 +16,16 @@ struct LinkedList{
 		firstNode = NULL;
 		lastNode = NULL;
 		length = 0;
-	}
+
+        isVectorDefined = false;
+    }
 	
 	LinkedList(Data data){
 		firstNode = lastNode = new Node<Data>(data);
 		
 		length = 1;
+
+        isVectorDefined = false;
 	}
 	
 	// Funciones
@@ -30,6 +37,7 @@ struct LinkedList{
 	
 	// Inserta en la ultima posicion
 	void add(Data data){
+        isVectorDefined = false;
 		Node<Data> * temp = new Node<Data>(data);
 		
 		temp->prev = lastNode;
@@ -47,6 +55,7 @@ struct LinkedList{
 	
 	// Inserta en la primera posicion
 	void addFirst(Data data){
+        isVectorDefined = false;
 		Node<Data> * temp = new Node<Data>(data);
 		
 		if (!isEmpty()){
@@ -64,6 +73,8 @@ struct LinkedList{
 	
 	// Inserta en la posicion n
 	void add(Data data, int n){
+        isVectorDefined = false;
+
 		if (n >= length || isEmpty()){
 			add(data);
 			
@@ -108,6 +119,7 @@ struct LinkedList{
 	
 	// Remueve el de la ultima posicion y retorna su valor
 	Data remove(){
+        isVectorDefined = false;
 		if (isEmpty()) return NULL;
 		
 		Node<Data> * removed = lastNode;
@@ -126,6 +138,7 @@ struct LinkedList{
 	
 	// Remueve el primero de la lista
 	Data removeFirst(){
+        isVectorDefined = false;
 		if (isEmpty()) return NULL;
 		
 		Node<Data> * removed = firstNode;
@@ -144,6 +157,7 @@ struct LinkedList{
 	
 	// Remueve el nodo de una posicion n
 	Data remove(int n){
+        isVectorDefined = false;
 		if (n <= 0){
 			return removeFirst();
 		
@@ -213,19 +227,22 @@ struct LinkedList{
 
     // Convierte una lista enlazada a un vector (array)
     vector<Data> toVector(){
-        vector<Data> vec;
+        if (isVectorDefined)
+            return cache;
 
-        vec.resize(length);
+        cache.resize(length);
 
         Node<Data> * tmp = firstNode;
 
         for (int i = 0; i < length; i++){
-            vec[i] = tmp->data;
+            cache[i] = tmp->data;
 
             tmp = tmp->next;
         }
 
-        return vec;
+        isVectorDefined = true;
+
+        return cache;
     }
 
     // Convierte una lista enlazada a un vector de nodos (array)

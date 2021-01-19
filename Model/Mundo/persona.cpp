@@ -103,7 +103,7 @@ void Persona::generarAmigos(vector<Persona *> vPersonas){
     for (int i = start; i < (int) vPersonas.size(); i++){
         if (amigos->length >= cant) break;
 
-        if (vPersonas[i]->ubicacion->pais == ubicacion->pais){
+        if (ubicacion != NULL && vPersonas[i]->ubicacion->pais == ubicacion->pais){
             amigos->add(vPersonas[i]);
 
         } else if (Utils::getRandom(0, 100) <= 40){
@@ -130,9 +130,23 @@ string Persona::getInfo(){
     info += "Vivo: " + estaVivo + "\n";
     info += "Creencia: " + creencia + "\n";
     info += "Profesion: " + profesion + "\n";
-    info += "Continente: " + ubicacion->continente + ", Pais: " + ubicacion->pais + "\n";
+    if (ubicacion != NULL)
+        info += "Continente: " + ubicacion->continente + ", Pais: " + ubicacion->pais + "\n";
     info += "Fecha de nacimiento: " + anio + "/" + mes + "/" + dia + "\n";
     info += "Conyugue: " + conyugue + "\n";
+    info += "----------------------------------------------\n";
+    info += "Log de muertes: \n";
+
+    for (int i = 0; i < killLog->length; i++){
+        info += killLog->get(i) + "\n";
+    }
+    info += "----------------------------------------------\n";
+    info += "Log de rescates: \n";
+
+    for (int i = 0; i < savedLog->length; i++){
+        info += savedLog->get(i) + "\n";
+    }
+
     info += "----------------------------------------------\n";
     info += "Deportes: \n";
     info += "Cantidad de veces por semana: " + to_string(deporte->cantidad) + "\n";
@@ -144,7 +158,31 @@ string Persona::getInfo(){
 
     info += "\n";
     info += "----------------------------------------------\n";
+    info += "Paises visitados: \n";
 
+    for (int i = 0; i < (int) turismo.size(); i++)
+        if (turismo[i] != NULL)
+        if (!turismo[i]->pais.empty())
+            info += turismo[i]->pais + " ";
+
+    info += "\n";
+    info += "----------------------------------------------\n";
+    info += "Amigos: \n";
+
+    for (int j = 0; j < amigos->length; j++){
+        info += "ID#" + to_string(amigos->get(j)->ID) + ", Nombre: " + amigos->get(j)->nombre + "\n";
+    }
+
+    info += "\n";
+    info += "----------------------------------------------\n";
+    info += "Hijos: \n";
+
+    for (int j = 0; j < familia->hijos->length; j++){
+        info += "ID#" + to_string(familia->hijos->get(j)->ID) + ", Nombre: " + familia->hijos->get(j)->nombre + "\n";
+    }
+
+    info += "\n";
+    info += "----------------------------------------------\n";
 
     return info;
 }

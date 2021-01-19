@@ -27,8 +27,7 @@ struct Node{
 	
 	// Funciones
 	
-	void print(){
-		cout << "[ " << data << " ] ";
+    void print(){
 	}
 
     // Permite intercambiar valores entre punteros

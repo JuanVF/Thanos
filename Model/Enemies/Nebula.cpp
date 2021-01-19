@@ -53,10 +53,8 @@ int Nebula::killAux(Persona * tmp){
 
     int amount = 0;
 
-    vector<Persona *> amigos = tmp->amigos->toVector();
-
-    for (int i = 0; i < (int) amigos.size(); i++){
-        Persona * amigo = amigos[i];
+    for (int i = 0; i < tmp->amigos->length; i++){
+        Persona * amigo = tmp->amigos->get(i);
 
         if (amigo->isAlive){
             amigo->killLog->add("Asesinado por Nebula");

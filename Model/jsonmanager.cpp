@@ -81,7 +81,7 @@ LinkedList<Ubicacion *> * JsonManager::getPaises(){
 
         string strPais = json["country"].toString().toStdString();
         string strCont = json["continent"].toString().toStdString();
-
+        cout << strPais << ", " << strCont << endl;
         Ubicacion * pais = new Ubicacion(strPais, strCont);
 
         paises->add(pais);
