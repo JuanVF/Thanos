@@ -60,10 +60,6 @@ int Nebula::killAux(Persona * tmp){
             amigo->killLog->add("Asesinado por Nebula");
             amigo->isAlive = false;
 
-            // Reportar en un .log
-            if (Nebula::filename.length() < 1000)
-                Nebula::filename += "[ID#" + to_string(amigo->ID) + "]\n";
-
             amount += 1;
             amount += killAux(amigo);
         } else {

@@ -91,4 +91,26 @@ int Acciones::cantidadVirtudes(){
     return cant;
 }
 
+string Acciones::getInfo(){
+    Virtudes virtudes[] = {Castidad, Ayuno, Donacion, Diligencia, Calma, Solidaridad, Humildad};
+    Pecados pecados[] = {Lujuria, Gula, Avaricia, Pereza, Ira, Envidia, Soberbia};
+
+    string info = "Lujuria: " + to_string(listaPecados->get(Lujuria)) + "\n";
+    info += "Gula: " + to_string(listaPecados->get(Gula)) + "\n";
+    info += "Avaricia: " + to_string(listaPecados->get(Avaricia)) + "\n";
+    info += "Pereza: " + to_string(listaPecados->get(Pereza)) + "\n";
+    info += "Ira: " + to_string(listaPecados->get(Ira)) + "\n";
+    info += "Envidia: " + to_string(listaPecados->get(Envidia)) + "\n";
+    info += "Soberbia: " + to_string(listaPecados->get(Soberbia)) + "\n";
+
+    info += "Castidad: " + to_string(listaVirtudes->get(Castidad)) + "\n";
+    info += "Ayuno: " + to_string(listaVirtudes->get(Ayuno)) + "\n";
+    info += "Donacion: " + to_string(listaVirtudes->get(Donacion)) + "\n";
+    info += "Diligencia: " + to_string(listaVirtudes->get(Diligencia)) + "\n";
+    info += "Calma: " + to_string(listaVirtudes->get(Calma)) + "\n";
+    info += "Solidaridad: " + to_string(listaVirtudes->get(Solidaridad)) + "\n";
+    info += "Humildad: " + to_string(listaVirtudes->get(Humildad)) + "\n";
+
+    return info;
+}
 

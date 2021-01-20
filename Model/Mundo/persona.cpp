@@ -167,6 +167,12 @@ string Persona::getInfo(){
 
     info += "\n";
     info += "----------------------------------------------\n";
+
+    info += "Lista de acciones: \n";
+    info += acciones->getInfo();
+
+    info += "\n";
+    info += "----------------------------------------------\n";
     info += "Amigos: \n";
 
     for (int j = 0; j < amigos->length; j++){

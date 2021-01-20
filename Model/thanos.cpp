@@ -273,6 +273,7 @@ public:
     //Retorna la cantidad total de pecados o virtudes
     int cantidadPecados();
     int cantidadVirtudes();
+    string getInfo();
 
 };
 
